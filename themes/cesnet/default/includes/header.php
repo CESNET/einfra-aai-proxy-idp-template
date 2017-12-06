@@ -129,7 +129,7 @@ if($onLoad !== '') {
 <div id="wrap">
 	
 	<div id="header">
-		<img src="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/img/logo-cesnet.png'); ?>" alt="Cesnet logo">
+		<img src="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/img/cesnet_RGB.png'); ?>" alt="Cesnet logo">
 		<h1><a class="header-link" href="/<?php echo $this->data['baseurlpath']; ?>">
 		<?php 
 			echo (isset($this->data['header']) ? $this->data['header'] : 'Cesnet proxy IdP');

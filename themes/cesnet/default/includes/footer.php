@@ -15,10 +15,10 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
             <div class="row">
                 <div class="col-md-4 logo">
                     <a href="http://www.cesnet.cz/">
-                        <img src="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/img/logo-cesnet.png') ?>">
+                        <img src="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/img/logo-cesnet.png') ?>" width="250px">
                     </a>
                     <a href="https://www.cerit-sc.cz">
-                    	<img src="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/img/logo-cerit.png') ?>">
+                        <img src="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/img/logo-cerit.png') ?>">
                     </a>
                 </div>
                 <div class="col-md-8">
@@ -39,14 +39,14 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
                             TEL: +420 224 352 994<br>
                             GSM: +420 602 252 531<br>
                             FAX: +420 224 313 211<br>
-                            <a href="mailto:info@cesnet.cz">info@cesnet.cz</a>
+                            <a href="mailto:perun@cesnet.cz">perun@cesnet.cz</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col col-sm-12 copyright">
-                    © 1991–<?php echo date("Y"); ?> | CESNET, z. s. p. o & CERIT-SC
+                    © 1991–2017 | CESNET, z. s. p. o. &amp; CERIT-SC
                 </div>
             </div>
         </div>

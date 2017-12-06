@@ -204,7 +204,7 @@ ul, ol {
 }
 
 #footer .col {
-    margin-bottom: 40px;
+    margin: auto;
     line-height: 2.1em;
 }
 
@@ -271,9 +271,8 @@ ul, ol {
 }
 
 .copyright{
-    text-align: right;
+    text-align: center;
     width: 100%;
-    margin-top: -20px;
 }
 
 #footer img {
