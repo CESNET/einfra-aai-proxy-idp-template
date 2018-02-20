@@ -46,7 +46,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
             </div>
             <div class="row">
                 <div class="col col-sm-12 copyright">
-                    © 1991–2017 | CESNET, z. s. p. o. &amp; CERIT-SC
+                    © 1991– <?php echo date("Y");?> | CESNET, z. s. p. o. &amp; CERIT-SC
                 </div>
             </div>
         </div>
