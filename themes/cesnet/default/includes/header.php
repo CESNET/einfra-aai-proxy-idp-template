@@ -24,7 +24,7 @@ if (array_key_exists('pageid', $this->data)) {
 		'page' => $this->data['pageid']
 	);
 		
-	SimpleSAML_Module::callHooks('htmlinject', $hookinfo);	
+	SimpleSAML\Module::callHooks('htmlinject', $hookinfo);	
 }
 // - o - o - o - o - o - o - o - o - o - o - o - o -
 
@@ -54,7 +54,7 @@ if(array_key_exists('header', $this->data)) {
 ?></title>
 
 	<link rel="stylesheet" type="text/css" href="/<?php echo $this->data['baseurlpath']; ?>resources/default.css" />
-	<link rel="icon" type="image/icon" href="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/img/icons/favicon.ico'); ?>" />
+	<link rel="icon" type="image/icon" href="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/img/icons/favicon.ico'); ?>" />
 
 <?php
 
@@ -97,8 +97,8 @@ if ($this->isLanguageRTL()) {
 }
 ?>
 
-        <link rel="stylesheet" type="text/css" href="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/bootstrap/css/bootstrap.min.css'); ?>" />
-        <link rel="stylesheet" type="text/css" href="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/css/cesnet.css'); ?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/bootstrap/css/bootstrap.min.css'); ?>" />
+        <link rel="stylesheet" type="text/css" href="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/css/cesnet.css'); ?>" />
 	
 	<meta name="robots" content="noindex, nofollow" />
 	
@@ -129,7 +129,7 @@ if($onLoad !== '') {
 <div id="wrap">
 	
 	<div id="header">
-		<img src="<?php echo SimpleSAML_Module::getModuleUrl('cesnet/res/img/cesnet_RGB.png'); ?>" alt="Cesnet logo">
+		<img src="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/img/cesnet_RGB.png'); ?>" alt="Cesnet logo">
 		<h1><a class="header-link" href="/<?php echo $this->data['baseurlpath']; ?>">
 		<?php 
 			echo (isset($this->data['header']) ? $this->data['header'] : 'Cesnet proxy IdP');
