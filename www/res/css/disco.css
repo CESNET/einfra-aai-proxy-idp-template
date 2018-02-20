@@ -33,7 +33,11 @@ a.social:hover img {
 }
 
 
-a.metaentry.favourite,
+a.metaentry.favourite {
+	background-image: url(../../../../resources/icons/silk/star.png);
+	background-position: 10px center;
+}
+
 a.metaentry:hover {
 	background-position: 10px center;
 }
