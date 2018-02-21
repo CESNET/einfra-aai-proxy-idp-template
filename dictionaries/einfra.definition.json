@@ -1,0 +1,44 @@
+{
+  "disco_previous_selection": {
+    "en": "your previous selection",
+    "cs": "vaše předchozí volba"
+  },
+  "disco_institutional_account": {
+    "en": "your institutional account",
+    "cs": "váš univerzitní účet"
+  },
+  "sign_with": {
+    "en": "Sign in with ",
+    "cs": "Přihlásit pomocí "
+  },
+  "name_of_institution": {
+    "en": "Type the name of your institution",
+    "cs": "Název instituce"
+  },
+  "find_institution_contact": {
+    "en": "Still can't find your institution? Contact us at",
+    "cs": "Stále nemůžete nalézt vaši instituci? Kontaktujte nás na"
+  },
+  "find_institution_extended": {
+    "en": "Can't find your institution? Select it in extended list and help us",
+    "cs": "Nemůžete nalézt vaši instituci? Vyberte ji z rozšířeného seznamu institucí a pomožte nám"
+  },
+  "add_institution": {
+    "en": "add your institution",
+    "cs": "přidat vaši instituci"
+  },
+  "or": {
+    "en": "or",
+    "cs": "nebo"
+  },
+  "header_name": {
+    "en": "Cesnet proxy IdP"
+  },
+  "footer_other_project": {
+    "en": "OTHER CESNET PROJECTS",
+    "cs": "OSTATNÍ PROJEKTY"
+  },
+  "footer_helpdesk": {
+    "en": "HELPDESK"
+  }
+}

@@ -24,7 +24,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
                 <div class="col-md-8">
                     <div class="row">
                         <div class="col col-sm-6">
-                            <h2>OTHER CESNET PROJECTS</h2>
+                            <h2> <?php echo $this->t('{cesnet:einfra:footer_other_project}');?></h2>
                             <ul>
                                 <li><a href="http://www.cesnet.cz/wp-content/uploads/2014/04/CzechLight-family_Posp%C3%ADchal.pdf">CzechLight</a></li>
                                 <li><a href="http://www.ultragrid.cz/en">UltraGrid</a></li>
@@ -35,7 +35,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
                             </ul>
                         </div>
                         <div class="col col-sm-6">
-                            <h2>HELPDESK</h2>
+                            <h2><?php echo $this->t('{cesnet:einfra:footer_helpdesk}');?></h2>
                             TEL: +420 224 352 994<br>
                             GSM: +420 602 252 531<br>
                             FAX: +420 224 313 211<br>

@@ -25,13 +25,13 @@ $this->includeAtTemplateBase('includes/header.php');
 
 if (!empty($this->getPreferredIdp())) {
 
-	echo '<p class="descriptionp">your previous selection</p>';
+	echo '<p class="descriptionp">' . $this->t('{cesnet:einfra:disco_previous_selection}') . '<EXTERNAL_FRAGMENT></EXTERNAL_FRAGMENT></p>';
 	echo '<div class="metalist list-group">';
 	echo showEntry($this, $this->getPreferredIdp(), true);
 	echo '</div>';
 
 
-	echo getOr();
+	echo getOr($this);
 }
 
 
@@ -51,17 +51,17 @@ echo '</div>';
 
 
 
-echo getOr();
+echo getOr($this);
 
 
 
 echo '<p class="descriptionp">';
-echo 'your institutional account';
+echo $this->t('{cesnet:einfra:disco_institutional_account}');
 echo '</p>';
 
 echo '<div class="inlinesearch">';
 echo '	<form id="idpselectform" action="?" method="get">
-			<input class="inlinesearchf form-control input-lg" placeholder="Type the name of your institution" 
+			<input class="inlinesearchf form-control input-lg" placeholder="' . $this->t('{cesnet:einfra:name_of_institution}') . '" 
 			type="text" value="" name="query" id="query" autofocus oninput="document.getElementById(\'list\').style.display=\'block\';"/>
 		</form>';
 echo '</div>';
@@ -80,9 +80,9 @@ echo '<br>';
 
 echo '<div class="no-idp-found alert alert-info">';
 if ($this->isOriginalSpNonFilteringIdPs()) {
-	echo 'Still can\'t find your institution? Contact us at <a href="mailto:aai-contact@cesnet.cz?subject=Request%20for%20adding%20new%20IdP">aai-contact@cesnet.cz</a>';
+	echo $this->t('{cesnet:einfra:find_institution_contact}') . '<a href="mailto:aai-contact@cesnet.cz?subject=Request%20for%20adding%20new%20IdP">aai-contact@cesnet.cz</a>';
 } else {
-	echo 'Can\'t find your institution? Select it in extended list and help us <a class="btn btn-primary" href="https://login.cesnet.cz/add-institution/">add your institution</a>';
+	echo $this->t('{cesnet:einfra:find_institution_extended}') . '<a class="btn btn-primary" href="https://login.cesnet.cz/add-institution/"> ' . $this->t('{cesnet:einfra:add_institution}') . ' </a>';
 }
 
 
@@ -154,7 +154,7 @@ function showEntrySocial($t, $metadata) {
 
 	$html .= '<img src="' . $metadata['icon'] . '">';
 
-	$html .= '<strong>Sign in with ' . $t->getTranslatedEntityName($metadata) . '</strong>';
+	$html .= '<strong> '. $t->t('{cesnet:einfra:sign_with}') . $t->getTranslatedEntityName($metadata) . '</strong>';
 
 	$html .= '</a>';
 
@@ -176,9 +176,9 @@ function showIcon($metadata) {
 }
 
 
-function getOr() {
+function getOr($t) {
 	$or  = '<div class="hrline">';
-	$or .= '	<span>or</span>';
+	$or .= '	<span>' . $t->t('{cesnet:einfra:or}') . '</span>';
 	$or .= '</div>';
 	return $or;
 }

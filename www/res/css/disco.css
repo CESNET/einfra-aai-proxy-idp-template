@@ -25,7 +25,7 @@ a.social img {
 	width: 40px;
 	max-width: 40px;
 	padding: 6px;
-	margin: -12px 10px -10px -10px;
+	margin: -12px 0px -10px -10px;
 	border-right: 1px solid rgba(0,0,0,0.2);
 }
 a.social:hover img {
@@ -124,4 +124,8 @@ form#idpselectform input {
 	padding: 0 20px;
 }
 
+.col-md-4{
+	padding-left: 5px;!important;
+	padding-right: 5px;!important;
+}
 
