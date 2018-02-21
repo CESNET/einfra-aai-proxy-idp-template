@@ -127,8 +127,82 @@ if($onLoad !== '') {
 
 
 <div id="wrap">
-	
-	<div id="header">
+
+    <div id="languagebar_line">
+		<?php
+
+		$includeLanguageBar = TRUE;
+		if (!empty($_POST))
+			$includeLanguageBar = FALSE;
+		if (isset($this->data['hideLanguageBar']) && $this->data['hideLanguageBar'] === TRUE)
+			$includeLanguageBar = FALSE;
+
+		if ($includeLanguageBar) {
+
+			$languages = $this->getLanguageList();
+			if ( count($languages) > 1 ) {
+				echo '<div id="languagebar">';
+				$langnames = array(
+					'no' => 'Bokmål', // Norwegian Bokmål
+					'nn' => 'Nynorsk', // Norwegian Nynorsk
+					'se' => 'Sámegiella', // Northern Sami
+					'da' => 'Dansk', // Danish
+					'en' => 'English',
+					'de' => 'Deutsch', // German
+					'sv' => 'Svenska', // Swedish
+					'fi' => 'Suomeksi', // Finnish
+					'es' => 'Español', // Spanish
+					'fr' => 'Français', // French
+					'it' => 'Italiano', // Italian
+					'nl' => 'Nederlands', // Dutch
+					'lb' => 'Lëtzebuergesch', // Luxembourgish
+					'cs' => 'Čeština', // Czech
+					'sl' => 'Slovenščina', // Slovensk
+					'lt' => 'Lietuvių kalba', // Lithuanian
+					'hr' => 'Hrvatski', // Croatian
+					'hu' => 'Magyar', // Hungarian
+					'pl' => 'Język polski', // Polish
+					'pt' => 'Português', // Portuguese
+					'pt-br' => 'Português brasileiro', // Portuguese
+					'ru' => 'русский язык', // Russian
+					'et' => 'eesti keel', // Estonian
+					'tr' => 'Türkçe', // Turkish
+					'el' => 'ελληνικά', // Greek
+					'ja' => '日本語', // Japanese
+					'zh' => '简体中文', // Chinese (simplified)
+					'zh-tw' => '繁體中文', // Chinese (traditional)
+					'ar' => 'العربية', // Arabic
+					'he' => 'עִבְרִית', // Hebrew
+					'id' => 'Bahasa Indonesia', // Indonesian
+					'sr' => 'Srpski', // Serbian
+					'lv' => 'Latviešu', // Latvian
+					'ro' => 'Românește', // Romanian
+					'eu' => 'Euskara', // Basque
+					'af' => 'Afrikaans', // Afrikaans
+				);
+
+				$textarray = array();
+				foreach ($languages AS $lang => $current) {
+					$lang = strtolower($lang);
+					if ($current) {
+						$textarray[] = $langnames[$lang];
+					} else {
+						$textarray[] = '<a href="' . htmlspecialchars(\SimpleSAML\Utils\HTTP::addURLParameters(\SimpleSAML\Utils\HTTP::getSelfURL(), array($this->getTranslator()->getLanguage()->getLanguageParameterName() => $lang))) . '">' .
+							$langnames[$lang] . '</a>';
+					}
+				}
+				echo join(' | ', $textarray);
+				echo '</div>';
+			}
+
+		}
+
+
+
+		?>
+
+    </div>
+		<div id="header">
 		<img src="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/img/cesnet_RGB.png'); ?>" alt="Cesnet logo">
 		<h1><a class="header-link" href="/<?php echo $this->data['baseurlpath']; ?>">
 		<?php 

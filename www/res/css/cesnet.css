@@ -120,6 +120,33 @@ a:hover, a:active {
     margin: auto;
 }
 
+#languagebar_line{
+    background: #4b4d4a;
+    margin-bottom: 20px;
+    border-bottom: 5px solid #ddd;
+}
+
+#languagebar {
+    margin:0px auto;
+    max-width: 720px;
+    color: #ffffff;
+    height: 25px;
+    text-decoration: none;
+}
+
+#languagebar a,
+#languagebar a:link ,
+#languagebar a:visited{
+    color: #ddd;
+    text-decoration: none;
+    border-bottom: 0px;
+}
+
+#languagebar a:hover{
+    color: #ffffff;
+    text-decoration: none;
+}
+
 #content {
 	margin: 0px auto;
     max-width: 720px;
