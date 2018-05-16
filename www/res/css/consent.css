@@ -1,10 +1,12 @@
-
+h3#attributeheader {
+	margin: 0em 0em 0.5em 0em;
+}
 .btn:hover {
 	background-image: none;
 }
-
 table.attributes {
 	border: inherit;
+	margin-bottom: 20px;
 }
 table.attributes tr td {
 	border-bottom: inherit;
@@ -13,4 +15,17 @@ table#table_with_attributes .attrvalue {
 	padding-left: 2em;
 	margin: 0.2em 0 0.1em 0;
 }
-
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	border-top: none;
+	border-bottom: 1px solid #ddd;
+}
+.btn-no {
+	margin-top: 40px;
+}
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+	position: absolute;
+	margin-left: -20px;
+}
+.checkbox-tight label.form-check-label {
+	font-weight: 500;
+}
