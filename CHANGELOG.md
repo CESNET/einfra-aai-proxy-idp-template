@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Changed]
+- Removed all deprecated items from dictionaries
 
 ## [v1.0.0]
 [Added]
