@@ -15,7 +15,7 @@ $this->includeAtTemplateBase('includes/header.php');
 <?php
 echo htmlspecialchars($this->t($this->data['dictDescr'], $this->data['parameters']));
 ?>
- <a href="#moreInfo" data-toggle="collapse">more <span class="caret"></span></a>
+ <a href="#moreInfo" data-toggle="collapse"><?php echo $this->t('{cesnet:einfra:more}');?><span class="caret"></span></a>
 
 </p>
 
@@ -26,7 +26,7 @@ if (isset($this->data['includeTemplate'])) {
 }
 ?>
 <div id="moreInfo" class="collapse">
-	<p id="trackid" class="input-left">Error number: <?php echo $this->data['error']['trackId']; ?></p>
+	<p id="trackid" class="input-left"><?php echo $this->t('{cesnet:einfra:error_number}'); echo $this->data['error']['trackId']; ?></p>
 <?php
 // print out exception only if the exception is available
 if ($this->data['showerrors']) {
@@ -64,8 +64,8 @@ if (isset($this->data['errorReportAddress'])) {
 	<div class="form-group">
 		<label class="col-sm-2 control-label" for="email"><?php echo $this->t('report_email'); ?></label>
 		<div class="col-sm-10">
-			<input name="email" type="email" class="form-control" id="email" placeholder="Email">
-			<span  class="help-block"><?php echo $this->t('report_text'); ?></span>
+			<input name="email" type="email" class="form-control" id="email" placeholder="Email" required>
+			<span  class="help-block"><?php echo $this->t('{cesnet:einfra:error_report_email_message}');?></span>
 		</div>
 	</div>
 
