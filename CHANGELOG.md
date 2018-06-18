@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 [Added]
 - Added support for Czech language for reporting error 
+- Class sspmod_cesnet_Auth_Process_ComputeLoA for compute Level of Assurance
 
 [Changed]
 - Removed all deprecated items from dictionaries
