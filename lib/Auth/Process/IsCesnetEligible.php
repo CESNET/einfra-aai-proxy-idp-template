@@ -52,8 +52,21 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 
 		$this->metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
 		$sourceIdpMeta = $this->metadata->getMetaData( $request['saml:sp:IdP'], 'saml20-idp-remote');
-		$entityCategoryAttributes = $sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'];
-		$this->eduPersonScopedAffiliation = $request['Attributes']['eduPersonScopedAffiliation'];
+
+		if (isset($sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'])) {
+			$entityCategoryAttributes = $sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'];
+		} else {
+			SimpleSAML\Logger::error("cesnet:IsCesnetEligible - There are no element with name 'EntityAttributes' "
+				. "and subelement with name 'http://macedir.org/entity-category' in metadata for IdP with entityId "
+				. $request['saml:sp:IdP'] . "!");
+			$entityCategoryAttributes = array();
+		}
+
+		if (isset($request['Attributes']['eduPersonScopedAffiliation'])) {
+			$this->eduPersonScopedAffiliation = $request['Attributes']['eduPersonScopedAffiliation'];
+		} else {
+			SimpleSAML\Logger::error("cesnet:IsCesnetEligible - Attribute with name 'eduPersonScopedAffiliation' did not received from IdP!");
+		}
 
 		foreach ($entityCategoryAttributes as $entityCategoryAttribute) {
 			if (substr($entityCategoryAttribute, 0, strlen(self::EDUID_IDP_GROUP)) === self::EDUID_IDP_GROUP) {
@@ -67,7 +80,7 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 				'attributeName' => $this->cesnetEligibleLastSeenAttr,
 			));
 
-			if ($this->isCesnetEligible()) {
+			if (!empty($this->eduPersonScopedAffiliation) && !is_null($this->entityCategory) && $this->isCesnetEligible()) {
 				$this->cesnetEligibleLastSeen['value'] = date("Y-m-d H:i:s");
 				sspmod_perun_RpcConnector::post('attributesManager', 'setAttribute', array(
 					'user' => $user->getId(),
