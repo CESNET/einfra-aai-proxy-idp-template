@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v1.1.1]
 [Changed]
 - Fixed the bug in isCesnetEligibleLastSeen and ComputeLoA, that throw error when the attribute 'EntityCategory' isn't in IdP metadata or if UserAttributes 'eduPersonScopedAffiliation' isn't received from IdP.
 - Removed the line in disco-tpl that log defaultFilter without any other information
@@ -24,5 +26,6 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v1.1.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.1
 [v1.1.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.0
 [v1.0.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.0.0
