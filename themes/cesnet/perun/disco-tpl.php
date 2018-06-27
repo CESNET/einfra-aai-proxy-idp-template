@@ -26,7 +26,6 @@ if (isset($this->data['AuthnContextClassRef'])) {
 }
 
 if (isset($idpmeta['defaultFilter'])) {
-	SimpleSAML\Logger::debug(print_r($idpmeta['defaultFilter'], true));
 	$defaultFilter = $idpmeta['defaultFilter'];
 }
 if (isset($idpmeta['defaultEFilter'])) {

@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 [Changed]
 - Fixed the bug in isCesnetEligibleLastSeen and ComputeLoA, that throw error when the attribute 'EntityCategory' isn't in IdP metadata or if UserAttributes 'eduPersonScopedAffiliation' isn't received from IdP.
+- Removed the line in disco-tpl that log defaultFilter without any other information
 
 ## [v1.1.0]
 [Added]
