@@ -20,7 +20,7 @@ class sspmod_cesnet_Auth_Process_ComputeLoA extends SimpleSAML_Auth_ProcessingFi
 	private $attrName;
 
 	private $metadata;
-	private $entityCategory;
+	private $entityCategory = null;
 	private $eduPersonScopedAffiliation = array();
 
 	public function __construct($config, $reserved)
@@ -44,8 +44,21 @@ class sspmod_cesnet_Auth_Process_ComputeLoA extends SimpleSAML_Auth_ProcessingFi
 		}
 		$this->metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
 		$sourceIdpMeta = $this->metadata->getMetaData( $request['saml:sp:IdP'], 'saml20-idp-remote');
-		$entityCategoryAttributes = $sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'];
-		$this->eduPersonScopedAffiliation = $request['Attributes']['eduPersonScopedAffiliation'];
+
+		if (isset($sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'])) {
+			$entityCategoryAttributes = $sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'];
+		} else {
+			SimpleSAML\Logger::error("cesnet:ComputeLoA - There are no element with name 'EntityAttributes' "
+				. "and subelement with name 'http://macedir.org/entity-category' in metadata for IdP with entityId "
+				. $request['saml:sp:IdP'] . "!");
+			$entityCategoryAttributes = array();
+		}
+
+		if (isset($request['Attributes']['eduPersonScopedAffiliation'])) {
+			$this->eduPersonScopedAffiliation = $request['Attributes']['eduPersonScopedAffiliation'];
+		} else {
+			SimpleSAML\Logger::error("cesnet:ComputeLoA - Attribute with name 'eduPersonScopedAffiliation' did not received from IdP!");
+		}
 
 		foreach ($entityCategoryAttributes as $entityCategoryAttribute) {
 			if (substr($entityCategoryAttribute, 0, strlen(self::EDUID_IDP_GROUP)) === self::EDUID_IDP_GROUP) {
