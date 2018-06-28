@@ -109,25 +109,25 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 			}
 		} elseif ($this->entityCategory === self::AVCR) {
 			foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-				if (preg_match("/^member@.+\.cz$/", $affiliation, $matches)) {
+				if (preg_match("/(^member@.+\.cz$)|(^staff@.+\.cz$)/", $affiliation, $matches)) {
 					return true;
 				}
 			}
 		} elseif ($this->entityCategory === self::LIBRARY) {
 			foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-				if (preg_match("/^employee@.+\.cz$/", $affiliation, $matches)) {
+				if (preg_match("/(^employee@.+\.cz$)|(^staff@.+\.cz$)/", $affiliation, $matches)) {
 					return true;
 				}
 			}
 		} elseif ($this->entityCategory === self::HOSPITAL) {
 			foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-				if (preg_match("/^employee@.+\.cz$/", $affiliation, $matches)) {
+				if (preg_match("/(^employee@.+\.cz$/)|(^staff@.+\.cz$)", $affiliation, $matches)) {
 					return true;
 				}
 			}
 		} elseif ($this->entityCategory === self::OTHER) {
 			foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-				if (preg_match("/(^employee@.+\.cz$)|(^member@.+\.cz$)/", $affiliation, $matches)) {
+				if (preg_match("/(^employee@.+\.cz$)|(^member@.+\.cz$)|(^employee@bbmri-eric\.eu$)|(^member@bbmri-eric\.eu$)/", $affiliation, $matches)) {
 					return true;
 				}
 			}
