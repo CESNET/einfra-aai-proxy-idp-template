@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 [Changed]
 - Fixed the filter for isCesnetEligibleLastSeen that checks the eduPersonScopedAffiliations
+- Fixed the bug, that attribute isCesnetEligibleLastSeen wasn't filled for Hostel Idp
 
 ## [v1.1.1]
 [Changed]

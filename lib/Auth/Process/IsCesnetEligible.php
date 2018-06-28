@@ -16,6 +16,8 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 	const OTHER = "other";
 	const EDUID_IDP_GROUP = "http://eduid.cz/uri/idp-group/";
 
+	const HOSTEL_ENTITY_ID = "https://idp.hostel.eduid.cz/idp/shibboleth";
+
 	const INTERFACE_PROPNAME = "interface";
 	const CESNET_ELIGIBLE_LAST_SEEN_ATTR = "cesnetEligibleLastSeenAttr";
 	const DEFAULT_ATTR_NAME = 'isCesnetEligibleLastSeen';
@@ -74,13 +76,21 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 			}
 		}
 
+		$isHostelVerified = false;
+		if ($request['saml:sp:IdP'] === self::HOSTEL_ENTITY_ID && isset($request['Attributes']['loa'])
+			&& $request['Attributes']['loa'][0] == 2) {
+			$isHostelVerified = true;
+			SimpleSAML\Logger::debug("cesnet:IsCesnetEligible - The user was verified by Hostel.");
+		}
+
 		try {
 			$this->cesnetEligibleLastSeen = sspmod_perun_RpcConnector::get('attributesManager', 'getAttribute', array(
 				'user' => $user->getId(),
 				'attributeName' => $this->cesnetEligibleLastSeenAttr,
 			));
 
-			if (!empty($this->eduPersonScopedAffiliation) && !is_null($this->entityCategory) && $this->isCesnetEligible()) {
+			if ((!empty($this->eduPersonScopedAffiliation) && !is_null($this->entityCategory) && $this->isCesnetEligible())
+				|| $isHostelVerified) {
 				$this->cesnetEligibleLastSeen['value'] = date("Y-m-d H:i:s");
 				sspmod_perun_RpcConnector::post('attributesManager', 'setAttribute', array(
 					'user' => $user->getId(),
