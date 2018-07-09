@@ -39,7 +39,7 @@ if(!empty($this->data['htmlinject']['htmlContentPost'])) {
                             TEL: +420 224 352 994<br>
                             GSM: +420 602 252 531<br>
                             FAX: +420 224 313 211<br>
-                            <a href="mailto:perun@cesnet.cz">perun@cesnet.cz</a>
+                            <a href="mailto:login@cesnet.cz">login@cesnet.cz</a>
                         </div>
                     </div>
                 </div>
