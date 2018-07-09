@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 [Changed]
 - Fixed the pattern in isCesnetEligibleLastSeen
+- Changed the email address for support in template
 
 ## [v1.1.2]
 [Changed]
