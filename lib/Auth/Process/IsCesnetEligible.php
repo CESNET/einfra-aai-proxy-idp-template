@@ -131,7 +131,7 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 			}
 		} elseif ($this->entityCategory === self::HOSPITAL) {
 			foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-				if (preg_match("/(^employee@.+\.cz$/)|(^staff@.+\.cz$)", $affiliation, $matches)) {
+				if (preg_match("/(^employee@.+\.cz$)|(^staff@.+\.cz$)/", $affiliation, $matches)) {
 					return true;
 				}
 			}
