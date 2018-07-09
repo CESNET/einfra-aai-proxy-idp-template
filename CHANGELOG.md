@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Changed]
+- Fixed the pattern in isCesnetEligibleLastSeen
 
 ## [v1.1.2]
 [Changed]
