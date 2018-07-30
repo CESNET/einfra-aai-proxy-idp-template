@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 [Changed]
 - Whole module now uses a dictionary
 
+[Fixed]
+- Fixed the changelog
+
 ## [v1.1.3]
 [Changed]
 - Fixed the pattern in isCesnetEligibleLastSeen
@@ -38,8 +41,8 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
-[v1.1.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.3
-[v1.1.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.2
-[v1.1.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.1
+[v1.1.3]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.3
+[v1.1.2]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.2
+[v1.1.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.1
 [v1.1.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.0
 [v1.0.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.0.0
