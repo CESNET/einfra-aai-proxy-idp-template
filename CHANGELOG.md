@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Added]
+- Added logos for Social Providers 
+
 [Changed]
 - Whole module now uses a dictionary
 
