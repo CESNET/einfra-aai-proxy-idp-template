@@ -20,6 +20,22 @@
   "error_report_email_message": {
     "en": "Please provide your mail so that we can contact you for further information or let you know the issue was fixed.",
     "cs": "Zadejte prosím váš email, abychom Vás mohli kontaktovat v případě potřeby doplnění informací nebo Vás informovat o vyřešení daného problému."
+  },
+  "error_id": {
+    "en": "Error ID",
+    "cs": "ID chyby"
+  },
+  "note": {
+    "en": "Note:",
+    "cs": "Poznámka"
+  },
+  "browser_not_support_javascript": {
+    "en": "Since your browser does not support JavaScript, you must press the button below once to proceed.",
+    "cs": "Vzhledem k tomu, že váš prohlížeč nepodporuje JavaScript, pokračujte stisknutím tlačítka níže."
+  },
+  "continue": {
+    "en": "Continue",
+    "cs": "Pokračovat"
   }
 
 }

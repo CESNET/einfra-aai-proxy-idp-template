@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Changed]
+- Whole module now uses a dictionary
 
 ## [v1.1.3]
 [Changed]
