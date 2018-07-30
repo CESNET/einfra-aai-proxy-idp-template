@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v1.1.4]
 [Added]
 - Added logos for Social Providers 
 
@@ -44,6 +46,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v1.1.4]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.4
 [v1.1.3]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.3
 [v1.1.2]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.2
 [v1.1.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.1
