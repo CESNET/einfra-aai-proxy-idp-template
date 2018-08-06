@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Fixed]
+-Fixed translations
 
 ## [v1.1.4]
 [Added]

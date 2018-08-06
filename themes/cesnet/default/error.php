@@ -55,7 +55,7 @@ if (isset($this->data['errorReportAddress'])) {
     <form action="<?php echo htmlspecialchars($this->data['errorReportAddress']); ?>" method="post" class="form-horizontal">
 
 	<div class="form-group">
-		<label class="col-sm-2 control-label" for="reportId"><?php echo $this->t('{einfra:einfra:error_id}'); ?></label>
+		<label class="col-sm-2 control-label" for="reportId"><?php echo $this->t('{cesnet:einfra:error_id}'); ?></label>
 		<div class="col-sm-10">
 			<input name="reportId" type="text" class="form-control" id="reportId" value="<?php echo $this->data['error']['reportId']; ?>" readonly>
 		</div>
