@@ -36,6 +36,10 @@
   "continue": {
     "en": "Continue",
     "cs": "Pokračovat"
+  },
+  "warning": {
+    "en": "Warning!",
+    "cs": "Varování!"
   }
 
 }
