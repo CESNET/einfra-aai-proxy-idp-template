@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 [Added]
 - Added License
+- Added class IdPCesnetActive for get information, if IdP is CESNET customer 
 
 [Changed]
 - Updated README
