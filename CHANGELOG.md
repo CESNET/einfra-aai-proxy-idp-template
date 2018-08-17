@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 [Added]
 - Added License
 
+[Changed]
+- Updated README
+
 [Fixed]
 - Fixed duplicate property
 
