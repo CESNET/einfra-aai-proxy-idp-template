@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Fixed]
+- Fixed duplicate property
 
 ## [v1.1.5]
 [Fixed]
