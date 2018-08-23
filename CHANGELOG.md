@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 [Added]
 - Added License
+- Added class IdPCesnetActive for get information, if IdP is CESNET customer 
 
 [Changed]
 - Updated README
+- Changed calls of RpcConnector methods (More information about changes in connectors and adapters in perun-simplesamlphp-module you can find in this [PR])
+
+[PR]:https://github.com/CESNET/perun-simplesamlphp-module/pull/34
 
 [Fixed]
 - Fixed duplicate property

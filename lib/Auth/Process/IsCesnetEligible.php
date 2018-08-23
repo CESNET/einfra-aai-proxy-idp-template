@@ -84,7 +84,8 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 		}
 
 		try {
-			$this->cesnetEligibleLastSeen = sspmod_perun_RpcConnector::get('attributesManager', 'getAttribute', array(
+			$rpcConnector = (new sspmod_perun_AdapterRpc())->getConnector();
+			$this->cesnetEligibleLastSeen = $rpcConnector->get('attributesManager', 'getAttribute', array(
 				'user' => $user->getId(),
 				'attributeName' => $this->cesnetEligibleLastSeenAttr,
 			));
@@ -92,7 +93,7 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 			if ((!empty($this->eduPersonScopedAffiliation) && !is_null($this->entityCategory) && $this->isCesnetEligible())
 				|| $isHostelVerified) {
 				$this->cesnetEligibleLastSeen['value'] = date("Y-m-d H:i:s");
-				sspmod_perun_RpcConnector::post('attributesManager', 'setAttribute', array(
+				$rpcConnector->post('attributesManager', 'setAttribute', array(
 					'user' => $user->getId(),
 					'attribute' => $this->cesnetEligibleLastSeen,
 				));
