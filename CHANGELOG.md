@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 [Added]
 - Added License
+- Possibility to show a warning in disco-tpl
 
 [Changed]
 - Updated README
