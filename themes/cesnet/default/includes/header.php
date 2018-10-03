@@ -132,8 +132,6 @@ if($onLoad !== '') {
 		<?php
 
 		$includeLanguageBar = TRUE;
-		if (!empty($_POST))
-			$includeLanguageBar = FALSE;
 		if (isset($this->data['hideLanguageBar']) && $this->data['hideLanguageBar'] === TRUE)
 			$includeLanguageBar = FALSE;
 

@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 
 [Fixed]
 - Fixed duplicate property
+- Fixed the bug with hidden language bar if the $_POST is not empty
 
 ## [v1.1.5]
 [Fixed]
