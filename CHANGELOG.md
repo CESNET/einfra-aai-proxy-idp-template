@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 
 [Fixed]
 - Fixed duplicate property
+- Fixed the bug with hidden language bar if the $_POST is not empty
 
 [Removed]
 - Removed function present_attributes($t, $attributes, $nameParent) from consentform.php
