@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 [Added]
 - Added License
 - Possibility to show a warning in disco-tpl
+- Added example how to configure ComputeLoA process filter
 
 [Changed]
 - Updated README
