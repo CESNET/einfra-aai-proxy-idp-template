@@ -15,6 +15,9 @@ All notable changes to this project will be documented in this file.
 [Fixed]
 - Fixed duplicate property
 
+[Removed]
+- Removed function present_attributes($t, $attributes, $nameParent) from consentform.php
+
 ## [v1.1.5]
 [Fixed]
 -Fixed translations
