@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 [Changed]
 - Updated README
 - Changed calls of RpcConnector methods (More information about changes in connectors and adapters in perun-simplesamlphp-module you can find in this [PR])
+- Filter IsCesnetEligible is now computed by combination of attributes from user and CESNET LDAP
 
 [PR]:https://github.com/CESNET/perun-simplesamlphp-module/pull/34
 
