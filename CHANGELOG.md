@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v1.2.0]
 [Added]
 - Added License
 - Possibility to show a warning in disco-tpl
@@ -68,6 +70,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v1.2.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.2.0
 [v1.1.5]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.5
 [v1.1.4]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.4
 [v1.1.3]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.3
