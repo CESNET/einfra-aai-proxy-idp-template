@@ -29,3 +29,7 @@ table#table_with_attributes .attrvalue {
 .checkbox-tight label.form-check-label {
 	font-weight: 500;
 }
+
+#table_with_attributes {
+	border: none;
+}
