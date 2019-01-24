@@ -2,8 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v1.3.1]
 [Fixed]
 - Fixed required version of module 'cesnet/simplesamlphp-module-perun'
+- Fixed css
 
 ## [v1.3.0]
 [Added]
@@ -76,6 +79,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v1.3.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.3.1
 [v1.3.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.3.0
 [v1.2.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.2.0
 [v1.1.5]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.1.5
