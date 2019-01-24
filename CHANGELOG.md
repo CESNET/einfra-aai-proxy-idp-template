@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Fixed]
+- Fixed required version of module 'cesnet/simplesamlphp-module-perun'
 
 ## [v1.3.0]
 [Added]
