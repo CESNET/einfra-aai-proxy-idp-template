@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Chahnged]
+- Changed ComputeLoA Process filter to add LoA=2 for people from university with affiliation='alum'  
+
 [Fixed]
 - Fix for situation when request does not contain Perun data
 

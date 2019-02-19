@@ -83,7 +83,7 @@ class sspmod_cesnet_Auth_Process_ComputeLoA extends SimpleSAML_Auth_ProcessingFi
 			return 2;
 		} elseif ($this->entityCategory === self::UNIVERSITY) {
 			foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-				if (preg_match("/(^employee@.+\.cz$)|(^faculty@.+\.cz$)|(^member@.+\.cz$)|(^student@.+\.cz$)|(^staff@.+\.cz$)/", $affiliation, $matches)) {
+				if (preg_match("/(^employee@.+\.cz$)|(^faculty@.+\.cz$)|(^member@.+\.cz$)|(^student@.+\.cz$)|(^staff@.+\.cz$)|(^alum@.+\.cz$)/", $affiliation, $matches)) {
 					return 2;
 				}
 			}
