@@ -2,8 +2,8 @@
 /**
  * Class sspmod_cesnet_Auth_Process_IsCesnetEligible
  *
- * This class put the timestamp of last login with account that pass through the eduid filter
- * (https://www.eduid.cz/en/tech/userfiltering#include_filter) into list of Attributes
+ * This class put the timestamp of last login into list of Attributes, when at least one value of attribute
+ * 'eduPersonScopedAffiliation' is marked as isCesnetEligible in CESNET LDAP
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
