@@ -18,7 +18,6 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 	const INTERFACE_PROPNAME = "interface";
 	const CESNET_ELIGIBLE_LAST_SEEN_ATTR = "cesnetEligibleLastSeenAttr";
 	const DEFAULT_ATTR_NAME = 'isCesnetEligibleLastSeen';
-	const LIST_OF_PERUN_ENTITY_IDS = 'listOfPerunEntityIds';
 
 	private $cesnetEligibleLastSeen;
 	private $cesnetEligibleLastSeenAttr;
@@ -26,7 +25,6 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 	private $spEntityId;
 	private $idpEntityId;
 	private $eduPersonScopedAffiliation = array();
-	private $listOfPerunEntityIds = array();
 
 	/**
 	 * @var sspmod_perun_LdapConnector
@@ -52,10 +50,6 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 			$this->attrName = self::DEFAULT_ATTR_NAME;
 		}
 
-		if (isset($config['listOfPerunEntityIds'])) {
-			$this->listOfPerunEntityIds = $config['listOfPerunEntityIds'];
-		}
-
 		$this->cesnetEligibleLastSeenAttr = $config[self::CESNET_ELIGIBLE_LAST_SEEN_ATTR];
 
 		$this->cesnetLdapConnector = (new sspmod_perun_AdapterLdap(self::CONFIG_FILE_NAME))->getConnector();
@@ -66,7 +60,14 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 	public function process(&$request)
 	{
 		assert('is_array($request)');
-		$user = $request['perun']['user'];
+
+		if (isset($request['perun']) && isset($request['perun']['user'])) {
+			$user = $request['perun']['user'];
+		}
+		else {
+			SimpleSAML\Logger::debug("cesnet:IsCesnetEligible - Request doesn't contain User, so attribute 'isCesnetEligible' won't be stored.");
+			$user = null;
+		}
 		$this->spEntityId = $request['SPMetadata']['entityid'];
 		$this->idpEntityId = $request['saml:sp:IdP'];
 
@@ -84,7 +85,7 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 		}
 
 		try {
-			if (!in_array($this->spEntityId, $this->listOfPerunEntityIds)) {
+			if (!empty($user)) {
 				$this->cesnetEligibleLastSeen = $this->rpcConnector->get('attributesManager', 'getAttribute', array(
 					'user' => $user->getId(),
 					'attributeName' => $this->cesnetEligibleLastSeenAttr,
@@ -93,7 +94,8 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 
 			if ((!empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible()) || $isHostelVerified) {
 				$this->cesnetEligibleLastSeen['value'] = date("Y-m-d H:i:s");
-				if (!in_array($this->spEntityId, $this->listOfPerunEntityIds)) {
+
+				if (!empty($user)) {
 					$this->rpcConnector->post('attributesManager', 'setAttribute', array(
 						'user' => $user->getId(),
 						'attribute' => $this->cesnetEligibleLastSeen,
