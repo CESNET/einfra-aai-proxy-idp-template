@@ -80,7 +80,7 @@ class sspmod_cesnet_Auth_Process_ComputeLoA extends SimpleSAML_Auth_ProcessingFi
 	private function getLoA() {
 
 		if (is_null($this->entityCategory) || empty($this->entityCategory)) {
-			return 2;
+			return 0;
 		} elseif ($this->entityCategory === self::UNIVERSITY) {
 			foreach ($this->eduPersonScopedAffiliation as $affiliation) {
 				if (preg_match("/(^employee@.+\.cz$)|(^faculty@.+\.cz$)|(^member@.+\.cz$)|(^student@.+\.cz$)|(^staff@.+\.cz$)|(^alum@.+\.cz$)/", $affiliation, $matches)) {

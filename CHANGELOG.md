@@ -2,9 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Fixed]
+- Set the default LoA to 0 for IdP without or with empty attribute 'entityCategory'
 
 ## [v1.4.0]
-[Chahnged]
+[Changed]
 - Changed ComputeLoA Process filter to add LoA=2 for people from university with affiliation='alum'  
 
 [Fixed]
