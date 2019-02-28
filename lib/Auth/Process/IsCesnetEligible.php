@@ -139,12 +139,18 @@ class sspmod_cesnet_Auth_Process_IsCesnetEligible extends SimpleSAML_Auth_Proces
 		try {
 			$affiliations = $this->cesnetLdapConnector->searchForEntity(self::ORGANIZATION_LDAP_BASE,'(entityIDofIdP=' . $idpEntityId . ')', array(
 				'cesnetcustomeraffiliation'))['cesnetcustomeraffiliation'];
-			foreach ($affiliations as $affiliation) {
-				array_push($allowedAffiliations, $affiliation);
+
+			if (empty($affiliations)) {
+				SimpleSAML\Logger::debug("cesnet:IsCesnetEligible - Received empty response from LDAP, entityId " . $idpEntityId . " was probably not found.");
+			} else {
+				foreach ($affiliations as $affiliation) {
+					array_push($allowedAffiliations, $affiliation);
+				}
 			}
 		} catch (Exception $ex) {
 			SimpleSAML\Logger::warning("cesnet:IsCesnetEligible - Unable to connect to LDAP!");
 		}
+
 		return $allowedAffiliations;
 	}
 }
