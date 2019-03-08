@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 
 [Changed]
 - Changed code style to PSR-2
+- Module uses namespaces
 
 ## [v1.4.2]
 [Fixed]

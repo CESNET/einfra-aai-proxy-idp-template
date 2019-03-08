@@ -1,10 +1,15 @@
 <?php
+
+use SimpleSAML\Module;
+
 if (!empty($this->data['htmlinject']['htmlContentPost'])) {
     foreach ($this->data['htmlinject']['htmlContentPost'] as $c) {
         echo $c;
     }
 }
+
 ?>
+
 </div><!-- #content -->
 </div><!-- #wrap -->
 
@@ -15,11 +20,11 @@ if (!empty($this->data['htmlinject']['htmlContentPost'])) {
             <div class="row">
                 <div class="col-md-4 logo">
                     <a href="http://www.cesnet.cz/">
-                        <img src="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/img/logo-cesnet.png') ?>"
+                        <img src="<?php echo Module::getModuleUrl('cesnet/res/img/logo-cesnet.png') ?>"
                              width="250px">
                     </a>
                     <a href="https://www.cerit-sc.cz">
-                        <img src="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/img/logo-cerit.png') ?>">
+                        <img src="<?php echo Module::getModuleUrl('cesnet/res/img/logo-cerit.png') ?>">
                     </a>
                 </div>
                 <div class="col-md-8">
@@ -66,4 +71,3 @@ if (!empty($this->data['htmlinject']['htmlContentPost'])) {
 
 </body>
 </html>
-

@@ -1,13 +1,18 @@
 <?php
 
+namespace SimpleSAML\Module\cesnet\Auth\Process;
+
+use SimpleSAML\Metadata\MetaDataStorageHandler;
+use SimpleSAML\Logger;
+
 /**
- * Class sspmod_cesnet_Auth_Process_ComputeLoA
+ * Class ComputeLoA
  *
  * Filter compute the LoA and save it to attribute defined by 'attrName' config property.
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-class sspmod_cesnet_Auth_Process_ComputeLoA extends SimpleSAML_Auth_ProcessingFilter
+class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
 {
     const UNIVERSITY = "university";
     const AVCR = "avcr";
@@ -27,7 +32,6 @@ class sspmod_cesnet_Auth_Process_ComputeLoA extends SimpleSAML_Auth_ProcessingFi
     {
         parent::__construct($config, $reserved);
 
-
         if (isset($config['attrName'])) {
             $this->attrName = $config['attrName'];
         } else {
@@ -42,13 +46,13 @@ class sspmod_cesnet_Auth_Process_ComputeLoA extends SimpleSAML_Auth_ProcessingFi
         if (isset($request['Attributes'][$this->attrName])) {
             return;
         }
-        $this->metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
+        $this->metadata = MetaDataStorageHandler::getMetadataHandler();
         $sourceIdpMeta = $this->metadata->getMetaData($request['saml:sp:IdP'], 'saml20-idp-remote');
 
         if (isset($sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'])) {
             $entityCategoryAttributes = $sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'];
         } else {
-            SimpleSAML\Logger::error("cesnet:ComputeLoA - There are no element with name 'EntityAttributes' "
+            Logger::error("cesnet:ComputeLoA - There are no element with name 'EntityAttributes' "
                 . "and subelement with name 'http://macedir.org/entity-category' in metadata for IdP with entityId "
                 . $request['saml:sp:IdP'] . "!");
             $entityCategoryAttributes = array();
@@ -57,7 +61,7 @@ class sspmod_cesnet_Auth_Process_ComputeLoA extends SimpleSAML_Auth_ProcessingFi
         if (isset($request['Attributes']['eduPersonScopedAffiliation'])) {
             $this->eduPersonScopedAffiliation = $request['Attributes']['eduPersonScopedAffiliation'];
         } else {
-            SimpleSAML\Logger::error(
+            Logger::error(
                 "cesnet:ComputeLoA - Attribute with name 'eduPersonScopedAffiliation' did not received from IdP!"
             );
         }
@@ -75,9 +79,8 @@ class sspmod_cesnet_Auth_Process_ComputeLoA extends SimpleSAML_Auth_ProcessingFi
         $loa = $this->getLoA();
 
         $request['Attributes'][$this->attrName] = array($loa);
-        SimpleSAML\Logger::debug("cesnet:ComputeLoA: loa '$loa' was saved to attribute " . $this->attrName);
+        Logger::debug("cesnet:ComputeLoA: loa '$loa' was saved to attribute " . $this->attrName);
     }
-
 
     /**
      * Get LoA by CESNET filter

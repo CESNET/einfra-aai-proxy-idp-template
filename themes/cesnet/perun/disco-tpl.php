@@ -1,10 +1,17 @@
 ﻿<?php
 
+use SimpleSAML\Metadata\MetaDataStorageHandler;
+use SimpleSAML\Utils\HTTP;
+use SimpleSAML\Configuration;
+use SimpleSAML\Logger;
+use SimpleSAML\Error\Exception;
+use SimpleSAML\Module\perun\DiscoTemplate;
+
 /**
  * This is simple example of template for perun Discovery service
  *
  * Allow type hinting in IDE
- * @var sspmod_perun_DiscoTemplate $this
+ * @var DiscoTemplate $this
  */
 
 $canContinue = false;
@@ -23,7 +30,7 @@ const WARNING_USER_CAN_CONTINUE = 'userCanContinue';
 const WARNING_TITLE = 'title';
 const WARNING_TEXT = 'text';
 
-$metadata = SimpleSAML_Metadata_MetaDataStorageHandler::getMetadataHandler();
+$metadata = MetaDataStorageHandler::getMetadataHandler();
 $idpmeta = $metadata->getMetaData('https://login.cesnet.cz/idp/', 'saml20-idp-hosted');
 
 $filter = null;
@@ -40,16 +47,16 @@ $warningText = null;
 $config = null;
 
 try {
-    $config = SimpleSAML_Configuration::getConfig(WARNING_CONFIG_FILE_NAME);
+    $config = Configuration::getConfig(WARNING_CONFIG_FILE_NAME);
 } catch (Exception $ex) {
-    SimpleSAML\Logger::warning("cesnet:disco-tpl: missing or invalid config-warning file");
+    Logger::warning("cesnet:disco-tpl: missing or invalid config-warning file");
 }
 
 if ($config != null) {
     try {
         $warningIsOn = $config->getBoolean(WARNING_IS_ON);
     } catch (Exception $ex) {
-        SimpleSAML\Logger::warning("cesnet:disco-tpl: missing or invalid isOn parameter in config-warning file");
+        Logger::warning("cesnet:disco-tpl: missing or invalid isOn parameter in config-warning file");
         $warningIsOn = false;
     }
 }
@@ -58,11 +65,12 @@ if ($warningIsOn) {
     try {
         $warningUserCanContinue = $config->getBoolean(WARNING_USER_CAN_CONTINUE);
     } catch (Exception $ex) {
-        SimpleSAML\Logger::warning(
+        Logger::warning(
             "cesnet:disco-tpl: missing or invalid userCanContinue parameter in config-warning file"
         );
         $warningUserCanContinue = true;
     }
+
     try {
         $warningTitle = $config->getString(WARNING_TITLE);
         $warningText = $config->getString(WARNING_TEXT);
@@ -70,7 +78,7 @@ if ($warningIsOn) {
             throw new Exception();
         }
     } catch (Exception $ex) {
-        SimpleSAML\Logger::warning("cesnet:disco-tpl: missing or invalid title or text in config-warning file");
+        Logger::warning("cesnet:disco-tpl: missing or invalid title or text in config-warning file");
         $canContinue = true;
         $warningIsOn = false;
     }
@@ -87,10 +95,10 @@ if (isset($this->data['AuthnContextClassRef'])) {
 if (isset($idpmeta['defaultFilter'])) {
     $defaultFilter = $idpmeta['defaultFilter'];
 }
+
 if (isset($idpmeta['defaultEFilter'])) {
     $defaultEFilter = $idpmeta['defaultEFilter'];
 }
-
 
 $this->data['jquery'] = array('core' => true, 'ui' => true, 'css' => true);
 $this->includeAtTemplateBase('includes/header.php');
@@ -110,7 +118,7 @@ if ($authContextClassRef != null) {
 if ($idpEntityId != null) {
     $url = $this->getContinueUrl($idpEntityId);
 
-    SimpleSAML\Utils\HTTP::redirectTrustedURL($url);
+    HTTP::redirectTrustedURL($url);
     exit;
 } else {
     $url = $this->getContinueUrlWithoutIdPEntityId();
@@ -156,7 +164,7 @@ if ($idpEntityId != null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $defaultFilter);
             exit;
         } else {
-            throw new SimpleSAML_Error_Exception("cesnet:disco-tpl: Filter did not set. ");
+            throw new Exception("cesnet:disco-tpl: Filter did not set. ");
         }
     }
 }

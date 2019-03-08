@@ -1,6 +1,7 @@
 <?php
 
-
+use SimpleSAML\Module;
+use SimpleSAML\Utils\HTTP;
 
 /**
  * Support the htmlinject hook, which allows modules to change header, pre and post body on all pages.
@@ -10,7 +11,6 @@ $this->data['htmlinject'] = array(
     'htmlContentPost' => array(),
     'htmlContentHead' => array(),
 );
-
 
 $jquery = array();
 if (array_key_exists('jquery', $this->data)) {
@@ -26,7 +26,7 @@ if (array_key_exists('pageid', $this->data)) {
         'page' => $this->data['pageid']
     );
 
-    SimpleSAML\Module::callHooks('htmlinject', $hookinfo);
+    Module::callHooks('htmlinject', $hookinfo);
 }
 // - o - o - o - o - o - o - o - o - o - o - o - o -
 
@@ -58,7 +58,7 @@ header('X-Frame-Options: SAMEORIGIN');
 
     <link rel="stylesheet" type="text/css" href="/<?php echo $this->data['baseurlpath']; ?>resources/default.css"/>
     <link rel="icon" type="image/icon"
-          href="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/img/icons/favicon.ico'); ?>"/>
+          href="<?php echo Module::getModuleUrl('cesnet/res/img/icons/favicon.ico'); ?>"/>
 
     <?php
 
@@ -111,9 +111,9 @@ header('X-Frame-Options: SAMEORIGIN');
     ?>
 
     <link rel="stylesheet" type="text/css"
-          href="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/bootstrap/css/bootstrap.min.css'); ?>"/>
+          href="<?php echo Module::getModuleUrl('cesnet/res/bootstrap/css/bootstrap.min.css'); ?>"/>
     <link rel="stylesheet" type="text/css"
-          href="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/css/cesnet.css'); ?>"/>
+          href="<?php echo Module::getModuleUrl('cesnet/res/css/cesnet.css'); ?>"/>
 
     <meta name="robots" content="noindex, nofollow"/>
 
@@ -124,11 +124,15 @@ header('X-Frame-Options: SAMEORIGIN');
     }
     ?>
 </head>
+
 <?php
+
 $onLoad = '';
+
 if (array_key_exists('autofocus', $this->data)) {
     $onLoad .= 'SimpleSAML_focus(\'' . $this->data['autofocus'] . '\');';
 }
+
 if (isset($this->data['onLoad'])) {
     $onLoad .= $this->data['onLoad'];
 }
@@ -136,9 +140,10 @@ if (isset($this->data['onLoad'])) {
 if ($onLoad !== '') {
     $onLoad = ' onload="' . $onLoad . '"';
 }
-?>
-<body<?php echo $onLoad; ?>>
 
+?>
+
+<body<?php echo $onLoad; ?>>
 
 <div id="wrap">
 
@@ -199,8 +204,8 @@ if ($onLoad !== '') {
                     if ($current) {
                         $textarray[] = $langnames[$lang];
                     } else {
-                        $textarray[] = '<a href="' . htmlspecialchars(\SimpleSAML\Utils\HTTP::addURLParameters(
-                            \SimpleSAML\Utils\HTTP::getSelfURL(),
+                        $textarray[] = '<a href="' . htmlspecialchars(HTTP::addURLParameters(
+                            HTTP::getSelfURL(),
                             array(
                                     $this->getTranslator()->getLanguage()->getLanguageParameterName() => $lang)
                         )) . '">' .
@@ -212,12 +217,11 @@ if ($onLoad !== '') {
             }
         }
 
-
         ?>
 
     </div>
     <div id="header">
-        <img src="<?php echo SimpleSAML\Module::getModuleUrl('cesnet/res/img/cesnet_RGB.png'); ?>" alt="Cesnet logo">
+        <img src="<?php echo Module::getModuleUrl('cesnet/res/img/cesnet_RGB.png'); ?>" alt="Cesnet logo">
         <h1><a class="header-link" href="/<?php echo $this->data['baseurlpath']; ?>">
                 <?php
                 echo(isset($this->data['header']) ? $this->data['header'] : $this->t('{cesnet:einfra:header_name}'));
@@ -225,9 +229,7 @@ if ($onLoad !== '') {
             </a></h1>
     </div>
 
-
     <div id="content">
-
 
 <?php
 

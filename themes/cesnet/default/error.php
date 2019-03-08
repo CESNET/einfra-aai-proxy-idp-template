@@ -1,4 +1,7 @@
 <?php
+
+use SimpleSAML\Module;
+
 $this->data['header'] = '<i class="glyphicon glyphicon-exclamation-sign text-danger"></i> ' .
     $this->t($this->data['dictTitle']);
 
@@ -7,27 +10,31 @@ $this->data['head'] = <<<EOF
 <meta name="googlebot" content="noarchive, nofollow" />
 EOF;
 
-$this->data['head'] .= '<script src="' . SimpleSAML\Module::getModuleUrl('cesnet/res/js/jquery.js') . '" ></script>';
-$this->data['head'] .= '<script src="' . SimpleSAML\Module::getModuleUrl('cesnet/res/bootstrap/js/bootstrap.min.js') .
+$this->data['head'] .= '<script src="' . Module::getModuleUrl('cesnet/res/js/jquery.js') . '" ></script>';
+$this->data['head'] .= '<script src="' . Module::getModuleUrl('cesnet/res/bootstrap/js/bootstrap.min.js') .
     '" ></script>';
 
 $this->includeAtTemplateBase('includes/header.php');
+
 ?>
+
     <p>
         <?php
         echo htmlspecialchars($this->t($this->data['dictDescr'], $this->data['parameters']));
         ?>
         <a href="#moreInfo" data-toggle="collapse"><?php echo $this->t('{cesnet:einfra:more}'); ?><span
                     class="caret"></span></a>
-
     </p>
 
 <?php
+
 // include optional information for error
 if (isset($this->data['includeTemplate'])) {
     $this->includeAtTemplateBase($this->data['includeTemplate']);
 }
+
 ?>
+
     <div id="moreInfo" class="collapse">
         <p id="trackid" class="input-left"><?php echo $this->t('{cesnet:einfra:error_number}');
             echo $this->data['error']['trackId']; ?></p>
@@ -43,7 +50,9 @@ if (isset($this->data['includeTemplate'])) {
         }
         ?>
     </div>
+
 <?php
+
 /* Add error report submit section if we have a valid technical contact. 'errorreportaddress' will only be set if
  * the technical contact email address has been set.
  */
@@ -94,6 +103,7 @@ if (isset($this->data['errorReportAddress'])) {
     </div>
     <?php
 }
+
 ?>
 
 <?php

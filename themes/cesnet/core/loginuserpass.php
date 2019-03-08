@@ -1,4 +1,5 @@
 <?php
+
 $this->data['header'] = $this->t('{login:user_pass_header}');
 
 if (strlen($this->data['username']) > 0) {
@@ -6,11 +7,9 @@ if (strlen($this->data['username']) > 0) {
 } else {
     $this->data['autofocus'] = 'username';
 }
+
 $this->includeAtTemplateBase('includes/header.php');
 
-?>
-
-<?php
 if ($this->data['errorcode'] !== null) {
     ?>
     <div class="alert alert-danger">
@@ -104,7 +103,6 @@ if ($this->data['errorcode'] !== null) {
         }
         ?>
 
-
         <?php
         if (array_key_exists('organizations', $this->data)) {
             ?>
@@ -164,6 +162,7 @@ if ($this->data['errorcode'] !== null) {
     </form>
 
 <?php
+
 if (!empty($this->data['links'])) {
     echo '<ul class="links" style="margin-top: 2em">';
     foreach ($this->data['links'] as $l) {
