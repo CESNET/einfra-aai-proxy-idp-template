@@ -13,10 +13,12 @@ if (is_array($dstName)) {
 $dstName = htmlspecialchars($dstName);
 
 
-$this->data['header'] = $this->t('{consent:consent:noconsent_title}');;
+$this->data['header'] = $this->t('{consent:consent:noconsent_title}');
 
-$this->data['head'] = '<link rel="stylesheet" media="screen" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />';
-$this->data['head'] .= '<link rel="stylesheet" media="screen" type="text/css" href="' . SimpleSAML\Module::getModuleUrl('cesnet/res/css/consent.css')  . '" />';
+$this->data['head'] = '<link rel="stylesheet" media="screen" type="text/css" ' .
+    'href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />';
+$this->data['head'] .= '<link rel="stylesheet" media="screen" type="text/css" ' .
+    'href="' . SimpleSAML\Module::getModuleUrl('cesnet/res/css/consent.css') . '" />';
 
 $this->includeAtTemplateBase('includes/header.php');
 
@@ -32,7 +34,7 @@ if ($this->data['resumeFrom']) {
 
 if ($this->data['aboutService']) {
     echo('<p><a href="' . htmlspecialchars($this->data['aboutService']) . '">');
-    echo('<i class="glyphicon glyphicon-info-sign"></i> ');    
+    echo('<i class="glyphicon glyphicon-info-sign"></i> ');
     echo($this->t('{consent:consent:noconsent_goto_about}'));
     echo('</a></p>');
 }

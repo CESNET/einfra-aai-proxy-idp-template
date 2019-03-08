@@ -8,16 +8,16 @@
  */
 $config = array(
 
-	/**
-	 * hostname of CESNET ldap with ldap(s):// at the beginning.
-	 */
-	'ldap.hostname' => '',
+    /**
+     * hostname of CESNET ldap with ldap(s):// at the beginning.
+     */
+    'ldap.hostname' => '',
 
-	/**
-	 * ldap credentials if ldap search is protected. If it is null or not set at all. No user is used for bind.
-	 */
-	'ldap.username' => '',
-	'ldap.password' => '',
-	'ldap.base' => '',
+    /**
+     * ldap credentials if ldap search is protected. If it is null or not set at all. No user is used for bind.
+     */
+    'ldap.username' => '',
+    'ldap.password' => '',
+    'ldap.base' => '',
 
 );
