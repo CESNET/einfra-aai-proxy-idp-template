@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Fixed]
+- Added verification for empty response from LDAP in IsCesnetEligible::getAllowedAffiliations which is valid state
 
 ## [v1.4.1]
 [Fixed]
