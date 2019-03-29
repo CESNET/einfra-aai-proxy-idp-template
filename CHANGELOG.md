@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v1.4.2]
 [Fixed]
 - Added verification for empty response from LDAP in IsCesnetEligible::getAllowedAffiliations which is valid state
 
@@ -92,6 +94,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v1.4.2]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.4.2
 [v1.4.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.4.1
 [v1.4.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.4.0
 [v1.3.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.3.1
