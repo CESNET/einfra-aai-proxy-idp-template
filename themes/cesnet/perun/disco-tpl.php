@@ -100,7 +100,7 @@ if (isset($idpmeta['defaultEFilter'])) {
     $defaultEFilter = $idpmeta['defaultEFilter'];
 }
 
-$this->data['jquery'] = array('core' => true, 'ui' => true, 'css' => true);
+$this->data['jquery'] = ['core' => true, 'ui' => true, 'css' => true];
 $this->includeAtTemplateBase('includes/header.php');
 
 if ($authContextClassRef != null) {

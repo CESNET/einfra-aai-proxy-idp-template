@@ -6,7 +6,7 @@
  * copy command (from SimpleSAML base dir)
  * cp modules/perun/module_cesnet_IsCesnetEligible.php config/
  */
-$config = array(
+$config = [
 
     /**
      * hostname of CESNET ldap with ldap(s):// at the beginning.
@@ -20,4 +20,4 @@ $config = array(
     'ldap.password' => '',
     'ldap.base' => '',
 
-);
+];

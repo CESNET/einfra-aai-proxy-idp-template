@@ -6,25 +6,25 @@ use SimpleSAML\Utils\HTTP;
 /**
  * Support the htmlinject hook, which allows modules to change header, pre and post body on all pages.
  */
-$this->data['htmlinject'] = array(
-    'htmlContentPre' => array(),
-    'htmlContentPost' => array(),
-    'htmlContentHead' => array(),
-);
+$this->data['htmlinject'] = [
+    'htmlContentPre' => [],
+    'htmlContentPost' => [],
+    'htmlContentHead' => [],
+];
 
-$jquery = array();
+$jquery = [];
 if (array_key_exists('jquery', $this->data)) {
     $jquery = $this->data['jquery'];
 }
 
 if (array_key_exists('pageid', $this->data)) {
-    $hookinfo = array(
+    $hookinfo = [
         'pre' => &$this->data['htmlinject']['htmlContentPre'],
         'post' => &$this->data['htmlinject']['htmlContentPost'],
         'head' => &$this->data['htmlinject']['htmlContentHead'],
         'jquery' => &$jquery,
         'page' => $this->data['pageid']
-    );
+    ];
 
     Module::callHooks('htmlinject', $hookinfo);
 }
@@ -159,7 +159,7 @@ if ($onLoad !== '') {
             $languages = $this->getLanguageList();
             if (count($languages) > 1) {
                 echo '<div id="languagebar">';
-                $langnames = array(
+                $langnames = [
                     'no' => 'Bokmål', // Norwegian Bokmål
                     'nn' => 'Nynorsk', // Norwegian Nynorsk
                     'se' => 'Sámegiella', // Northern Sami
@@ -196,9 +196,9 @@ if ($onLoad !== '') {
                     'ro' => 'Românește', // Romanian
                     'eu' => 'Euskara', // Basque
                     'af' => 'Afrikaans', // Afrikaans
-                );
+                ];
 
-                $textarray = array();
+                $textarray = [];
                 foreach ($languages as $lang => $current) {
                     $lang = strtolower($lang);
                     if ($current) {
@@ -206,8 +206,7 @@ if ($onLoad !== '') {
                     } else {
                         $textarray[] = '<a href="' . htmlspecialchars(HTTP::addURLParameters(
                             HTTP::getSelfURL(),
-                            array(
-                                    $this->getTranslator()->getLanguage()->getLanguageParameterName() => $lang)
+                            [$this->getTranslator()->getLanguage()->getLanguageParameterName() => $lang]
                         )) . '">' .
                             $langnames[$lang] . '</a>';
                     }
