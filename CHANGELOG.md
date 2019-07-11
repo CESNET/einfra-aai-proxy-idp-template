@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Added
+- Possibility to read isCesnetEligible attribute from LDAP
+
 #### Changed
 - Using of short array syntax ([] instead of array())
 
