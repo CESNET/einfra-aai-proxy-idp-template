@@ -3,7 +3,7 @@
 /**
  * This config template is able to show a warning to a user.
  */
-$config = array(
+$config = [
 
     /**
      * When true, the config file is switched on.
@@ -25,4 +25,4 @@ $config = array(
      */
     'text' => '<p> Due to maintenance it won\'t be possible to access our service from' .
                 '<b>1.1.2018 2:00</b> to <b>1.1.2018 4:00</b> </p>',
-);
+];

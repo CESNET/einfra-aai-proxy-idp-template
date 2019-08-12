@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Changed]
+- Using of short array syntax ([] instead of array())
 
 ## [v2.0.0]
 [Added]

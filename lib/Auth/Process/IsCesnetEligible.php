@@ -33,7 +33,7 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
 
     private $spEntityId;
     private $idpEntityId;
-    private $eduPersonScopedAffiliation = array();
+    private $eduPersonScopedAffiliation = [];
 
     /**
      * @var LdapConnector
@@ -107,7 +107,7 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
                 $this->cesnetEligibleLastSeen = $this->rpcConnector->get(
                     'attributesManager',
                     'getAttribute',
-                    array('user' => $user->getId(), 'attributeName' => $this->cesnetEligibleLastSeenAttr,)
+                    ['user' => $user->getId(), 'attributeName' => $this->cesnetEligibleLastSeenAttr,]
                 );
             }
 
@@ -120,7 +120,7 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
                     $this->rpcConnector->post(
                         'attributesManager',
                         'setAttribute',
-                        array('user' => $user->getId(), 'attribute' => $this->cesnetEligibleLastSeen,)
+                        ['user' => $user->getId(), 'attribute' => $this->cesnetEligibleLastSeen,]
                     );
                 }
             }
@@ -129,7 +129,7 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
         }
 
         if ($this->cesnetEligibleLastSeen['value'] != null) {
-            $request['Attributes'][$this->attrName] = array($this->cesnetEligibleLastSeen['value']);
+            $request['Attributes'][$this->attrName] = [$this->cesnetEligibleLastSeen['value']];
         }
     }
 
@@ -160,13 +160,13 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
      */
     private function getAllowedAffiliations($idpEntityId)
     {
-        $allowedAffiliations = array();
+        $allowedAffiliations = [];
 
         try {
             $affiliations = $this->cesnetLdapConnector->searchForEntity(
                 self::ORGANIZATION_LDAP_BASE,
                 '(entityIDofIdP=' . $idpEntityId . ')',
-                array('cesnetcustomeraffiliation')
+                ['cesnetcustomeraffiliation']
             )['cesnetcustomeraffiliation'];
 
             if (empty($affiliations)) {
