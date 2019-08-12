@@ -2,93 +2,96 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-[Changed]
+#### Changed
 - Using of short array syntax ([] instead of array())
 
+#### Fixed
+- Fixed the style of changelog
+
 ## [v2.0.0]
-[Added]
+#### Added
 - Added file phpcs.xml
 
-[Changed]
+#### Changed
 - Changed code style to PSR-2
 - Module uses namespaces
 - Some templates are included from module perun
 
 ## [v1.4.2]
-[Fixed]
+#### Fixed
 - Added verification for empty response from LDAP in IsCesnetEligible::getAllowedAffiliations which is valid state
 
 ## [v1.4.1]
-[Fixed]
+#### Fixed
 - Set the default LoA to 0 for IdP without or with empty attribute 'entityCategory'
 
 ## [v1.4.0]
-[Changed]
+#### Changed
 - Changed ComputeLoA Process filter to add LoA=2 for people from university with affiliation='alum'  
 
-[Fixed]
+#### Fixed
 - Fix for situation when request does not contain Perun data
 
 ## [v1.3.1]
-[Fixed]
+#### Fixed
 - Fixed required version of module 'cesnet/simplesamlphp-module-perun'
 - Fixed css
 
 ## [v1.3.0]
-[Added]
+#### Added
 - Added logo for Metacentrum
 
 ## [v1.2.0]
-[Added]
+#### Added
 - Added License
 - Possibility to show a warning in disco-tpl
 - Added example how to configure ComputeLoA process filter
 
-[Changed]
+#### Changed
 - Updated README
 - Changed calls of RpcConnector methods (More information about changes in connectors and adapters in perun-simplesamlphp-module you can find in this [PR])
 - Filter IsCesnetEligible is now computed by combination of attributes from user and CESNET LDAP
 
 [PR]:https://github.com/CESNET/perun-simplesamlphp-module/pull/34
 
-[Fixed]
+#### Fixed
 - Fixed duplicate property
 - Fixed the bug with hidden language bar if the $_POST is not empty
 
-[Removed]
+#### Removed
 - Removed function present_attributes($t, $attributes, $nameParent) from consentform.php
 
 ## [v1.1.5]
-[Fixed]
+#### Fixed
 -Fixed translations
 
 ## [v1.1.4]
-[Added]
+#### Added
 - Added logos for Social Providers 
 
-[Changed]
+#### Changed
 - Whole module now uses a dictionary
 
-[Fixed]
+#### Fixed
 - Fixed the changelog
 
 ## [v1.1.3]
-[Changed]
+#### Changed
 - Fixed the pattern in isCesnetEligibleLastSeen
 - Changed the email address for support in template
 
 ## [v1.1.2]
-[Changed]
+#### Changed
 - Fixed the filter for isCesnetEligibleLastSeen that checks the eduPersonScopedAffiliations
 - Fixed the bug, that attribute isCesnetEligibleLastSeen wasn't filled for Hostel Idp
 
 ## [v1.1.1]
-[Changed]
+#### Changed
 - Fixed the bug in isCesnetEligibleLastSeen and ComputeLoA, that throw error when the attribute 'EntityCategory' isn't in IdP metadata or if UserAttributes 'eduPersonScopedAffiliation' isn't received from IdP.
 - Removed the line in disco-tpl that log defaultFilter without any other information
 
 ## [v1.1.0]
-[Added]
+#### Added
 - Added support for Czech language for reporting error 
 - Class sspmod_cesnet_Auth_Process_ComputeLoA for compute Level of Assurance
 - Class sspmod_cesnet_Auth_Process_IsCesnetEligible for get the timestamp of last login with account that pass through 
@@ -96,12 +99,12 @@ the eduid filter (More information about this filter you can get [here] )
 
 [here]: https://www.eduid.cz/en/tech/userfiltering#include_filter
 
-[Changed]
+#### Changed
 - Removed all deprecated items from dictionaries
 - Filling email is now required for reporting error
 
 ## [v1.0.0]
-[Added]
+#### Added
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
