@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\cesnet\Auth\Process;
 
+use SimpleSAML\Auth\ProcessingFilter;
 use SimpleSAML\Module\perun\LdapConnector;
 use SimpleSAML\Module\perun\RpcConnector;
 use SimpleSAML\Module\perun\AdapterLdap;
@@ -17,7 +18,7 @@ use SimpleSAML\Error\Exception;
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
+class IsCesnetEligible extends ProcessingFilter
 {
     const CONFIG_FILE_NAME = 'module_cesnet_IsCesnetEligible.php';
     const ORGANIZATION_LDAP_BASE = 'ou=Organizations,o=eduID.cz,o=apps,dc=cesnet,dc=cz';
@@ -25,11 +26,19 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
     const HOSTEL_ENTITY_ID = "https://idp.hostel.eduid.cz/idp/shibboleth";
 
     const INTERFACE_PROPNAME = "interface";
-    const CESNET_ELIGIBLE_LAST_SEEN_ATTR = "cesnetEligibleLastSeenAttr";
+    const ATTR_NAME = "attrName";
+    const RPC_ATTRIBUTE_NAME = "RPC.attributeName";
+    const LDAP_ATTRIBUTE_NAME = 'LDAP.attributeName';
     const DEFAULT_ATTR_NAME = 'isCesnetEligibleLastSeen';
+    const LDAP = 'LDAP';
+    const RPC = 'RPC';
 
-    private $cesnetEligibleLastSeen;
-    private $cesnetEligibleLastSeenAttr;
+    private $cesnetEligibleLastSeenValue;
+    private $cesnetEligibleLastSeenAttribute;
+    private $interface = self::RPC;
+    private $rpcAttrName;
+    private $ldapAttrName;
+    private $returnAttrName = self::DEFAULT_ATTR_NAME;
 
     private $spEntityId;
     private $idpEntityId;
@@ -41,6 +50,11 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
     private $cesnetLdapConnector;
 
     /**
+     * @var AdapterLdap
+     */
+    private $ldapAdapter;
+
+    /**
      * @var RpcConnector
      */
     private $rpcConnector;
@@ -49,23 +63,33 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
     {
         parent::__construct($config, $reserved);
 
-        if (!isset($config[self::CESNET_ELIGIBLE_LAST_SEEN_ATTR])) {
+        if (!isset($config[self::RPC_ATTRIBUTE_NAME]) || empty($config[self::RPC_ATTRIBUTE_NAME])) {
             throw new Exception(
                 "cesnet:IsCesnetEligible - missing mandatory configuration option '" .
-                self::CESNET_ELIGIBLE_LAST_SEEN_ATTR . "'."
+                self::RPC_ATTRIBUTE_NAME . "'."
             );
         }
 
-        if (isset($config['attrName'])) {
-            $this->attrName = $config['attrName'];
-        } else {
-            $this->attrName = self::DEFAULT_ATTR_NAME;
+        $this->rpcAttrName = $config[self::RPC_ATTRIBUTE_NAME];
+
+        $this->rpcConnector = (new AdapterRpc())->getConnector();
+        $this->cesnetLdapConnector = (new AdapterLdap(self::CONFIG_FILE_NAME))->getConnector();
+
+        if (isset($config[self::ATTR_NAME]) && !empty($config[self::ATTR_NAME])) {
+            $this->returnAttrName = $config['attrName'];
         }
 
-        $this->cesnetEligibleLastSeenAttr = $config[self::CESNET_ELIGIBLE_LAST_SEEN_ATTR];
-
-        $this->cesnetLdapConnector = (new AdapterLdap(self::CONFIG_FILE_NAME))->getConnector();
-        $this->rpcConnector = (new AdapterRpc())->getConnector();
+        if (isset($config[self::INTERFACE_PROPNAME], $config[self::LDAP_ATTRIBUTE_NAME]) &&
+            $config[self::INTERFACE_PROPNAME] === self::LDAP && !empty($config[self::LDAP_ATTRIBUTE_NAME])) {
+            $this->interface = $config[self::INTERFACE_PROPNAME];
+            $this->ldapAttrName = $config[self::LDAP_ATTRIBUTE_NAME];
+            $this->ldapAdapter = new AdapterLdap();
+        } else {
+            Logger::warning(
+                "cesnet:IsCesnetEligible - One of " . self::INTERFACE_PROPNAME . self::LDAP_ATTRIBUTE_NAME .
+                " is missing or empty. RPC interface will be used"
+            );
+        }
     }
 
     public function process(&$request)
@@ -104,23 +128,41 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
 
         try {
             if (!empty($user)) {
-                $this->cesnetEligibleLastSeen = $this->rpcConnector->get(
-                    'attributesManager',
-                    'getAttribute',
-                    ['user' => $user->getId(), 'attributeName' => $this->cesnetEligibleLastSeenAttr,]
-                );
-            }
+                if ($this->interface === self::LDAP) {
+                    $attrs = $this->ldapAdapter->getUserAttributes($user, [$this->ldapAttrName]);
+                    if (isset($attrs[$this->ldapAttrName][0])) {
+                        $this->cesnetEligibleLastSeenValue = $attrs[$this->ldapAttrName][0];
+                    }
+                } else {
+                    $this->cesnetEligibleLastSeenAttribute = $this->rpcConnector->get(
+                        'attributesManager',
+                        'getAttribute',
+                        ['user' => $user->getId(), 'attributeName' => $this->rpcAttrName]
+                    );
+                    $this->cesnetEligibleLastSeenValue = $this->cesnetEligibleLastSeenAttribute['value'];
+                }
 
-            if ((!empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible())
-                || $isHostelVerified
-            ) {
-                $this->cesnetEligibleLastSeen['value'] = date("Y-m-d H:i:s");
+                if ($isHostelVerified || (!empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible())) {
+                    $this->cesnetEligibleLastSeenValue = date("Y-m-d H:i:s");
 
-                if (!empty($user)) {
+                    if ($this->cesnetEligibleLastSeenAttribute === null) {
+                        $this->cesnetEligibleLastSeenAttribute = $this->rpcConnector->get(
+                            'attributesManager',
+                            'getAttribute',
+                            ['user' => $user->getId(), 'attributeName' => $this->rpcAttrName,]
+                        );
+                    }
+                    $this->cesnetEligibleLastSeenAttribute['value'] = $this->cesnetEligibleLastSeenValue;
+
                     $this->rpcConnector->post(
                         'attributesManager',
                         'setAttribute',
-                        ['user' => $user->getId(), 'attribute' => $this->cesnetEligibleLastSeen,]
+                        ['user' => $user->getId(), 'attribute' => $this->cesnetEligibleLastSeenAttribute,]
+                    );
+
+                    Logger::debug(
+                        "cesnet:IsCesnetEligible - Value of attribute isCesnetEligibleLastSeen was updated to " .
+                        $this->cesnetEligibleLastSeenValue . "in Perun system."
                     );
                 }
             }
@@ -128,8 +170,12 @@ class IsCesnetEligible extends \SimpleSAML\Auth\ProcessingFilter
             Logger::warning("cesnet:IsCesnetEligible - " . $ex->getMessage());
         }
 
-        if ($this->cesnetEligibleLastSeen['value'] != null) {
-            $request['Attributes'][$this->attrName] = [$this->cesnetEligibleLastSeen['value']];
+        if ($this->cesnetEligibleLastSeenValue !== null) {
+            $request['Attributes'][$this->returnAttrName] = [$this->cesnetEligibleLastSeenValue];
+            Logger::debug(
+                "cesnet:IsCesnetEligible - Attribute " . $this->returnAttrName . " was set to value " .
+                $this->cesnetEligibleLastSeenValue
+            );
         }
     }
 
