@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Changed
+- Warning in disco-tpl modified due to changes in module perun
 
 ## [v2.1.0]
 #### Added
