@@ -23,11 +23,11 @@ class IsCesnetEligible extends ProcessingFilter
     const CONFIG_FILE_NAME = 'module_cesnet_IsCesnetEligible.php';
     const ORGANIZATION_LDAP_BASE = 'ou=Organizations,o=eduID.cz,o=apps,dc=cesnet,dc=cz';
 
-    const HOSTEL_ENTITY_ID = "https://idp.hostel.eduid.cz/idp/shibboleth";
+    const HOSTEL_ENTITY_ID = 'https://idp.hostel.eduid.cz/idp/shibboleth';
 
-    const INTERFACE_PROPNAME = "interface";
-    const ATTR_NAME = "attrName";
-    const RPC_ATTRIBUTE_NAME = "RPC.attributeName";
+    const INTERFACE_PROPNAME = 'interface';
+    const ATTR_NAME = 'attrName';
+    const RPC_ATTRIBUTE_NAME = 'RPC.attributeName';
     const LDAP_ATTRIBUTE_NAME = 'LDAP.attributeName';
     const DEFAULT_ATTR_NAME = 'isCesnetEligibleLastSeen';
     const LDAP = 'LDAP';
@@ -65,8 +65,8 @@ class IsCesnetEligible extends ProcessingFilter
 
         if (!isset($config[self::RPC_ATTRIBUTE_NAME]) || empty($config[self::RPC_ATTRIBUTE_NAME])) {
             throw new Exception(
-                "cesnet:IsCesnetEligible - missing mandatory configuration option '" .
-                self::RPC_ATTRIBUTE_NAME . "'."
+                'cesnet:IsCesnetEligible - missing mandatory configuration option \'' .
+                self::RPC_ATTRIBUTE_NAME . '\'.'
             );
         }
 
@@ -86,8 +86,8 @@ class IsCesnetEligible extends ProcessingFilter
             $this->ldapAdapter = new AdapterLdap();
         } else {
             Logger::warning(
-                "cesnet:IsCesnetEligible - One of " . self::INTERFACE_PROPNAME . self::LDAP_ATTRIBUTE_NAME .
-                " is missing or empty. RPC interface will be used"
+                'cesnet:IsCesnetEligible - One of ' . self::INTERFACE_PROPNAME . self::LDAP_ATTRIBUTE_NAME .
+                ' is missing or empty. RPC interface will be used'
             );
         }
     }
@@ -100,8 +100,8 @@ class IsCesnetEligible extends ProcessingFilter
             $user = $request['perun']['user'];
         } else {
             Logger::debug(
-                "cesnet:IsCesnetEligible - " .
-                "Request doesn't contain User, so attribute 'isCesnetEligible' won't be stored."
+                'cesnet:IsCesnetEligible - ' .
+                'Request doesn\'t contain User, so attribute \'isCesnetEligible\' won\'t be stored.'
             );
             $user = null;
         }
@@ -113,7 +113,8 @@ class IsCesnetEligible extends ProcessingFilter
                 = $request['Attributes']['eduPersonScopedAffiliation'];
         } else {
             Logger::error(
-                "cesnet:IsCesnetEligible - Attribute with name 'eduPersonScopedAffiliation' did not received from IdP!"
+                'cesnet:IsCesnetEligible - ' .
+                'Attribute with name \'eduPersonScopedAffiliation\' did not received from IdP!'
             );
         }
 
@@ -123,7 +124,7 @@ class IsCesnetEligible extends ProcessingFilter
             && $request['Attributes']['loa'][0] === 2
         ) {
             $isHostelVerified = true;
-            Logger::debug("cesnet:IsCesnetEligible - The user was verified by Hostel.");
+            Logger::debug('cesnet:IsCesnetEligible - The user was verified by Hostel.');
         }
 
         try {
@@ -144,7 +145,7 @@ class IsCesnetEligible extends ProcessingFilter
             }
 
             if ($isHostelVerified || (!empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible())) {
-                $this->cesnetEligibleLastSeenValue = date("Y-m-d H:i:s");
+                $this->cesnetEligibleLastSeenValue = date('Y-m-d H:i:s');
 
                 if (!empty($user)) {
                     if ($this->cesnetEligibleLastSeenAttribute === null) {
@@ -163,19 +164,19 @@ class IsCesnetEligible extends ProcessingFilter
                     );
 
                     Logger::debug(
-                        "cesnet:IsCesnetEligible - Value of attribute isCesnetEligibleLastSeen was updated to " .
-                        $this->cesnetEligibleLastSeenValue . "in Perun system."
+                        'cesnet:IsCesnetEligible - Value of attribute isCesnetEligibleLastSeen was updated to ' .
+                        $this->cesnetEligibleLastSeenValue . 'in Perun system.'
                     );
                 }
             }
         } catch (Exception $ex) {
-            Logger::warning("cesnet:IsCesnetEligible - " . $ex->getMessage());
+            Logger::warning('cesnet:IsCesnetEligible - ' . $ex->getMessage());
         }
 
         if ($this->cesnetEligibleLastSeenValue !== null) {
             $request['Attributes'][$this->returnAttrName] = [$this->cesnetEligibleLastSeenValue];
             Logger::debug(
-                "cesnet:IsCesnetEligible - Attribute " . $this->returnAttrName . " was set to value " .
+                'cesnet:IsCesnetEligible - Attribute ' . $this->returnAttrName . ' was set to value ' .
                 $this->cesnetEligibleLastSeenValue
             );
         }
@@ -190,7 +191,7 @@ class IsCesnetEligible extends ProcessingFilter
         $allowedAffiliations
             = $this->getAllowedAffiliations($this->idpEntityId);
         foreach ($this->eduPersonScopedAffiliation as $userAffiliation) {
-            $userAffiliationWithoutScope = explode("@", $userAffiliation)[0];
+            $userAffiliationWithoutScope = explode('@', $userAffiliation)[0];
             if ($userAffiliationWithoutScope !== null &&
                 !empty($userAffiliationWithoutScope) &&
                 in_array($userAffiliationWithoutScope, $allowedAffiliations)
@@ -218,15 +219,15 @@ class IsCesnetEligible extends ProcessingFilter
             )['cesnetcustomeraffiliation'];
 
             if (empty($affiliations)) {
-                Logger::debug("cesnet:IsCesnetEligible - Received empty response from LDAP, entityId "
-                    . $idpEntityId . " was probably not found.");
+                Logger::debug('cesnet:IsCesnetEligible - Received empty response from LDAP, entityId '
+                    . $idpEntityId . ' was probably not found.');
             } else {
                 foreach ($affiliations as $affiliation) {
                     array_push($allowedAffiliations, $affiliation);
                 }
             }
         } catch (Exception $ex) {
-            Logger::warning("cesnet:IsCesnetEligible - Unable to connect to LDAP!");
+            Logger::warning('cesnet:IsCesnetEligible - Unable to connect to LDAP!');
         }
 
         return $allowedAffiliations;
