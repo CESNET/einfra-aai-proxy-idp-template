@@ -89,7 +89,7 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
     private function getLoA()
     {
 
-        if (is_null($this->entityCategory) || empty($this->entityCategory)) {
+        if ($this->entityCategory === null || empty($this->entityCategory)) {
             return 0;
         } elseif ($this->entityCategory === self::UNIVERSITY) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {

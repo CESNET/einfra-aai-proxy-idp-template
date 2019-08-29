@@ -191,7 +191,7 @@ class IsCesnetEligible extends ProcessingFilter
             = $this->getAllowedAffiliations($this->idpEntityId);
         foreach ($this->eduPersonScopedAffiliation as $userAffiliation) {
             $userAffiliationWithoutScope = explode("@", $userAffiliation)[0];
-            if (!is_null($userAffiliationWithoutScope) &&
+            if ($userAffiliationWithoutScope !== null &&
                 !empty($userAffiliationWithoutScope) &&
                 in_array($userAffiliationWithoutScope, $allowedAffiliations)
             ) {

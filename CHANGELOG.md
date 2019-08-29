@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 #### Changed
 - Warning in disco-tpl modified due to changes in module perun
 - Removed warning template - it is no longer needed here because it was moved to module perun
+- is_null() changed to === null
 
 ## [v2.1.0]
 #### Added
