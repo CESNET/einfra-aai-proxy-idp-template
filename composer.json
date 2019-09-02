@@ -1,7 +1,7 @@
 {
     "name": "cesnet/simplesamlphp-module-cesnet",
     "description": "A SimpleSAMLphp module providing template for DiscoPower and user-facing parts of the SSP for CESNET eInfra",
-    "version" : "2.2.0-dev",
+    "version" : "2.3.0-dev",
     "type": "simplesamlphp-module",
     "keywords": ["CESNET", "cesnet", "simplesamlphp", "template"],
     "license": "BSD-2-Clause",
