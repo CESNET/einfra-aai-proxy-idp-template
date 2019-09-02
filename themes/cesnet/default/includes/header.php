@@ -68,7 +68,7 @@ header('X-Frame-Options: SAMEORIGIN');
             $version = $jquery['version'];
         }
 
-        if ($version == '1.8') {
+        if ($version === '1.8') {
             if (isset($jquery['core']) && $jquery['core']) {
                 echo(
                         '<script type="text/javascript" src="/' . $this->data['baseurlpath'] .

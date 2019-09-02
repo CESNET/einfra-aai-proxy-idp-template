@@ -14,12 +14,12 @@ use SimpleSAML\Logger;
  */
 class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
 {
-    const UNIVERSITY = "university";
-    const AVCR = "avcr";
-    const LIBRARY = "library";
-    const HOSPITAL = "hospital";
-    const OTHER = "other";
-    const EDUID_IDP_GROUP = "http://eduid.cz/uri/idp-group/";
+    const UNIVERSITY = 'university';
+    const AVCR = 'avcr';
+    const LIBRARY = 'library';
+    const HOSPITAL = 'hospital';
+    const OTHER = 'other';
+    const EDUID_IDP_GROUP = 'http://eduid.cz/uri/idp-group/';
     const DEFAULT_ATTR_NAME = 'loa';
 
     private $attrName;
@@ -52,8 +52,8 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
         if (isset($sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'])) {
             $entityCategoryAttributes = $sourceIdpMeta['EntityAttributes']['http://macedir.org/entity-category'];
         } else {
-            Logger::error("cesnet:ComputeLoA - There are no element with name 'EntityAttributes' "
-                . "and subelement with name 'http://macedir.org/entity-category' in metadata for IdP with entityId "
+            Logger::error('cesnet:ComputeLoA - There are no element with name \'EntityAttributes\' '
+                . 'and subelement with name \'http://macedir.org/entity-category\' in metadata for IdP with entityId '
                 . $request['saml:sp:IdP'] . "!");
             $entityCategoryAttributes = [];
         }
@@ -62,7 +62,7 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
             $this->eduPersonScopedAffiliation = $request['Attributes']['eduPersonScopedAffiliation'];
         } else {
             Logger::error(
-                "cesnet:ComputeLoA - Attribute with name 'eduPersonScopedAffiliation' did not received from IdP!"
+                'cesnet:ComputeLoA - Attribute with name \'eduPersonScopedAffiliation\' did not received from IdP!'
             );
         }
 
@@ -79,7 +79,7 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
         $loa = $this->getLoA();
 
         $request['Attributes'][$this->attrName] = [$loa];
-        Logger::debug("cesnet:ComputeLoA: loa '$loa' was saved to attribute " . $this->attrName);
+        Logger::debug('cesnet:ComputeLoA: loa \'$loa\' was saved to attribute ' . $this->attrName);
     }
 
     /**
@@ -89,17 +89,17 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
     private function getLoA()
     {
 
-        if (is_null($this->entityCategory) || empty($this->entityCategory)) {
+        if ($this->entityCategory === null || empty($this->entityCategory)) {
             return 0;
         } elseif ($this->entityCategory === self::UNIVERSITY) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
                 if (preg_match(
-                    "/(^employee@.+\.cz$)|" .
-                    "(^faculty@.+\.cz$)|" .
-                    "(^member@.+\.cz$)|" .
-                    "(^student@.+\.cz$)|" .
-                    "(^staff@.+\.cz$)|" .
-                    "(^alum@.+\.cz$)/",
+                    '/(^employee@.+\.cz$)|' .
+                    '(^faculty@.+\.cz$)|' .
+                    '(^member@.+\.cz$)|' .
+                    '(^student@.+\.cz$)|' .
+                    '(^staff@.+\.cz$)|' .
+                    '(^alum@.+\.cz$)/',
                     $affiliation,
                     $matches
                 )) {
@@ -108,25 +108,25 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
             }
         } elseif ($this->entityCategory === self::AVCR) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-                if (preg_match("/^member@.+\.cz$/", $affiliation, $matches)) {
+                if (preg_match('/^member@.+\.cz$/', $affiliation, $matches)) {
                     return 2;
                 }
             }
         } elseif ($this->entityCategory === self::LIBRARY) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-                if (preg_match("/^employee@.+\.cz$/", $affiliation, $matches)) {
+                if (preg_match('/^employee@.+\.cz$/', $affiliation, $matches)) {
                     return 2;
                 }
             }
         } elseif ($this->entityCategory === self::HOSPITAL) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-                if (preg_match("/^employee@.+\.cz$/", $affiliation, $matches)) {
+                if (preg_match('/^employee@.+\.cz$/', $affiliation, $matches)) {
                     return 2;
                 }
             }
         } elseif ($this->entityCategory === self::OTHER) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
-                if (preg_match("/(^employee@.+\.cz$)|(^member@.+\.cz$)/", $affiliation, $matches)) {
+                if (preg_match('/(^employee@.+\.cz$)|(^member@.+\.cz$)/', $affiliation, $matches)) {
                     return 2;
                 }
             }

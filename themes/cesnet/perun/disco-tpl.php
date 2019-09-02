@@ -125,7 +125,7 @@ if ($idpEntityId != null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $defaultFilter);
             exit;
         } else {
-            throw new Exception("cesnet:disco-tpl: Filter did not set. ");
+            throw new Exception('cesnet:disco-tpl: Filter did not set. ');
         }
     }
 }
