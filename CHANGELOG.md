@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- Fixed the bug where isCesnetEligibleLastSeen was not set if user is empty
 
 ## [v2.1.0]
 #### Added

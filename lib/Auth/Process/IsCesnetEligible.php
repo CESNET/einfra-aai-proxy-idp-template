@@ -141,10 +141,12 @@ class IsCesnetEligible extends ProcessingFilter
                     );
                     $this->cesnetEligibleLastSeenValue = $this->cesnetEligibleLastSeenAttribute['value'];
                 }
+            }
 
-                if ($isHostelVerified || (!empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible())) {
-                    $this->cesnetEligibleLastSeenValue = date("Y-m-d H:i:s");
+            if ($isHostelVerified || (!empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible())) {
+                $this->cesnetEligibleLastSeenValue = date("Y-m-d H:i:s");
 
+                if (!empty($user)) {
                     if ($this->cesnetEligibleLastSeenAttribute === null) {
                         $this->cesnetEligibleLastSeenAttribute = $this->rpcConnector->get(
                             'attributesManager',
