@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- Fixed the bug where isCesnetEligibleLastSeen was not set if user is empty
+
 #### Changed
 - Warning in disco-tpl modified due to changes in module perun
 - Removed warning template - it is no longer needed here because it was moved to module perun
