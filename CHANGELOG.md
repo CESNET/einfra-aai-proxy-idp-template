@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v2.1.1]
 #### Fixed
 - Fixed the bug where isCesnetEligibleLastSeen was not set if user is empty
 
@@ -115,6 +117,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v2.1.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.1.1
 [v2.1.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.1.0
 [v2.0.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.0.0
 [v1.4.2]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v1.4.2
