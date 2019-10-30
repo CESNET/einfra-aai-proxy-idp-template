@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- Changed cesnet.css: color of h[1-6] is no longer overwritten by other css files
 
 ## [v2.2.0]
 #### Fixed
