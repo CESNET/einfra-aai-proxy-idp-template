@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v2.2.1]
 #### Fixed
 - Changed cesnet.css: color of h[1-6] is no longer overwritten by other css files
 
@@ -126,6 +128,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v2.2.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.2.1
 [v2.2.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.2.0
 [v2.1.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.1.0
 [v2.0.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.0.0
