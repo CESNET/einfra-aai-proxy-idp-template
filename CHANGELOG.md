@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 #### Fixed
 - Text in h1 tag in header is no longer as link
+- Fixed color of h2 in footer 
 
 ## [v2.2.1]
 #### Fixed

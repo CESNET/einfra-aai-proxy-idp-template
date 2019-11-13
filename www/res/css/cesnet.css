@@ -230,7 +230,7 @@ ul, ol {
 #footer .col h2 {
     font-family: Helvetica,Arial,sans-serif;
     font-weight: bold;
-    color: #e1e5e9;
+    color: #e1e5e9 !important;
     padding-bottom: .8em;
     margin-bottom: 1em;
     font-size: 1.05em;
