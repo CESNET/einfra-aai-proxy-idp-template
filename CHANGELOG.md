@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- Text in h1 tag in header is no longer as link
 
 ## [v2.2.1]
 #### Fixed
