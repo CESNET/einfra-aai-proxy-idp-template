@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Changed
+- Updating 'IsCesnetEligible' attribute in Perun asynchronously
+
 #### Fixed
 - Text in h1 tag in header is no longer as link
 - Fixed color of h2 in footer
