@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- IsCesnetEligible - Resolved problem with poor evaluation resolving, if user was or wasn't verified by Hostel
 
 ## [v2.2.1]
 #### Fixed
