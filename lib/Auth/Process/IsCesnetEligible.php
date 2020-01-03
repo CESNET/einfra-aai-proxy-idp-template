@@ -121,7 +121,7 @@ class IsCesnetEligible extends ProcessingFilter
         $isHostelVerified = false;
         if ($request['saml:sp:IdP'] === self::HOSTEL_ENTITY_ID &&
             isset($request['Attributes']['loa'])
-            && $request['Attributes']['loa'][0] === 2
+            && (integer)$request['Attributes']['loa'][0] === 2
         ) {
             $isHostelVerified = true;
             Logger::debug('cesnet:IsCesnetEligible - The user was verified by Hostel.');

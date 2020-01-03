@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 #### Fixed
 - Text in h1 tag in header is no longer as link
 - Fixed color of h2 in footer 
+- IsCesnetEligible - Resolved problem with poor evaluation resolving, if user was or wasn't verified by Hostel
 
 ## [v2.2.1]
 #### Fixed
