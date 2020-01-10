@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v2.3.1]
 #### Fixed
 - Log error when CESNET LDAP return more than one item in getAllowedAffiliations() in IsCesnetEligible.php
 
@@ -142,6 +144,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v2.3.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.3.1
 [v2.3.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.3.0
 [v2.2.2]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.2.2
 [v2.2.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.2.1
