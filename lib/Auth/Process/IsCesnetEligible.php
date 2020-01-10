@@ -193,16 +193,20 @@ class IsCesnetEligible extends ProcessingFilter
         $allowedAffiliations = [];
 
         try {
-            $affiliations = $this->cesnetLdapConnector->searchForEntity(
+            $organization = $this->cesnetLdapConnector->searchForEntity(
                 self::ORGANIZATION_LDAP_BASE,
                 '(entityIDofIdP=' . $idpEntityId . ')',
                 ['cesnetcustomeraffiliation']
-            )['cesnetcustomeraffiliation'];
+            );
 
-            if (empty($affiliations)) {
+            if (empty($organization)) {
                 Logger::debug('cesnet:IsCesnetEligible - Received empty response from LDAP, entityId '
                     . $idpEntityId . ' was probably not found.');
+            } elseif (count($organization) > 1) {
+                Logger::error('cesnet:IsCesnetEligible - Received more record from LDAP with entityId '
+                              . $idpEntityId . '.');
             } else {
+                $affiliations = $organization['cesnetcustomeraffiliation'];
                 foreach ($affiliations as $affiliation) {
                     array_push($allowedAffiliations, $affiliation);
                 }

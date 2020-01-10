@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- Log error when CESNET LDAP return more than one item in getAllowedAffiliations() in IsCesnetEligible.php
 
 ## [v2.3.0]
 #### Changed
