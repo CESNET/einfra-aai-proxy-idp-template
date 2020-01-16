@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Added
+- Added new process filter CheckIsCesnetEligible, which redirect the user to the unauthorized page in case the attribute has got invalid value (or is not set at all)
 
 ## [v2.4.0]
 #### Addded

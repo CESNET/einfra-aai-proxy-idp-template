@@ -18,6 +18,7 @@
         "simplesamlphp/composer-module-installer": "~1.0",
         "simplesamlphp/simplesamlphp": "~1.17",
         "cesnet/simplesamlphp-module-perun": "~3.3",
+        "cesnet/simplesamlphp-module-perunauthorize": "~2.1",
         "ext-json": "*"
     }
 }
