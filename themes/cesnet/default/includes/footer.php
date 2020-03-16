@@ -23,9 +23,6 @@ if (!empty($this->data['htmlinject']['htmlContentPost'])) {
                         <img src="<?php echo Module::getModuleUrl('cesnet/res/img/logo-cesnet.png') ?>"
                              width="250px">
                     </a>
-                    <a href="https://www.cerit-sc.cz">
-                        <img src="<?php echo Module::getModuleUrl('cesnet/res/img/logo-cerit.png') ?>">
-                    </a>
                 </div>
                 <div class="col-md-8">
                     <div class="row">
@@ -62,7 +59,7 @@ if (!empty($this->data['htmlinject']['htmlContentPost'])) {
             </div>
             <div class="row">
                 <div class="col col-sm-12 copyright">
-                    © 1991– <?php echo date("Y"); ?> | CESNET, z. s. p. o. &amp; CERIT-SC
+                    © 1991– <?php echo date("Y"); ?> | CESNET, z. s. p. o.
                 </div>
             </div>
         </div>
