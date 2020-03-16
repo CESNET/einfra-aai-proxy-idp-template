@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- Removed CERIT logo from the footer
 
 ## [v2.3.1]
 #### Fixed
