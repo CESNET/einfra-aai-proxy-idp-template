@@ -29,29 +29,24 @@ if (!empty($this->data['htmlinject']['htmlContentPost'])) {
                         <div class="col col-sm-6">
                             <h2> <?php echo $this->t('{cesnet:einfra:footer_other_project}'); ?></h2>
                             <ul>
-                                <li>
-                                    <a href=
-                                       "http://www.cesnet.cz/wp-content/uploads/2014/04/CzechLight-family_Posp%C3%ADchal.pdf">
-                                        CzechLight
-                                    </a>
-                                </li>
-                                <li><a href="http://www.ultragrid.cz/en">UltraGrid</a></li>
-                                <li><a href="http://www.4kgateway.com/">4k Gateway</a></li>
-                                <li><a href="http://shongo.cesnet.cz/">Shongo</a></li>
-                                <li>
-                                    <a href=
-                                       "http://www.cesnet.cz/sluzby/sledovani-provozu-site/sledovani-infrastruktury/">
-                                        FTAS a G3
-                                    </a>
-                                </li>
-                                <li><a href="https://www.liberouter.org/">Librerouter</a></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:links:metacentrum_link}') . '">' .
+                                        $this->t('{cesnet:links:metacentrum_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:links:data_storage_link}') . '">' .
+                                        $this->t('{cesnet:links:data_storage_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:links:meetings_link}') . '">' .
+                                        $this->t('{cesnet:links:meetings_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:links:certificate_link}') . '">' .
+                                        $this->t('{cesnet:links:certificate_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:links:services_link}') . '">' .
+                                        $this->t('{cesnet:links:services_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:links:data_protection_link}') . '">' .
+                                        $this->t('{cesnet:links:data_protection_name}') . '</a>'; ?></li>
                             </ul>
                         </div>
                         <div class="col col-sm-6">
                             <h2><?php echo $this->t('{cesnet:einfra:footer_helpdesk}'); ?></h2>
-                            TEL: +420 224 352 994<br>
+                            TEL: +420 234 680 222<br>
                             GSM: +420 602 252 531<br>
-                            FAX: +420 224 313 211<br>
                             <a href="mailto:login@cesnet.cz">login@cesnet.cz</a>
                         </div>
                     </div>

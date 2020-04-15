@@ -1,0 +1,50 @@
+{
+  "metacentrum_link": {
+    "en": "https://www.metacentrum.cz/en/Sluzby/index.html",
+    "cs": "https://www.metacentrum.cz/cs/Sluzby/"
+  },
+  "metacentrum_name": {
+    "en": "Computing",
+    "cs": "Náročné výpočty"
+  },
+  "data_storage_link": {
+    "en": "https://du.cesnet.cz/en/start",
+    "cs": "https://du.cesnet.cz/cs/navody/jsme_tady_poprve"
+  },
+  "data_storage_name": {
+    "en": "Data storage",
+    "cs": "Datová úložiště"
+  },
+  "meetings_link": {
+    "en": "https://meetings.cesnet.cz/?lang=en",
+    "cs": "https://meetings.cesnet.cz/"
+  },
+  "meetings_name": {
+    "en": "Videoconferences",
+    "cs": "Videokonference"
+  },
+  "certificate_link": {
+    "en": "https://pki.cesnet.cz/en/st-cca-services.html",
+    "cs": "https://pki.cesnet.cz/cs/st-cca-services.html"
+  },
+  "certificate_name": {
+    "en": "Certificates",
+    "cs": "Certifikáty"
+  },
+  "services_link": {
+    "en": "https://www.cesnet.cz/services/?lang=en",
+    "cs": "https://www.cesnet.cz/sluzby/"
+  },
+  "services_name": {
+    "en": "Other services",
+    "cs": "Další služby"
+  },
+  "data_protection_link": {
+    "en": "https://www.cesnet.cz/cesnet/personal-data-protection/?lang=en",
+    "cs": "https://www.cesnet.cz/sdruzeni/ochrana-osobnich-udaju/"
+  },
+  "data_protection_name": {
+    "en": "Personal data protection",
+    "cs": "Ochrana osobních údajů"
+  }
+}
