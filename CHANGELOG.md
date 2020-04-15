@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- Changes in footer
+    * Removed FAX contact
+    * Using multi-language links
 
 ## [v2.3.2]
 #### Fixed
