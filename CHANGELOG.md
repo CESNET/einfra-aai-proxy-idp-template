@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Addded
+- Added apple logo
 
 ## [v2.3.3]
 #### Fixed
