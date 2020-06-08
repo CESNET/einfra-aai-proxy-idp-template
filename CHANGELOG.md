@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Added
+- Add support for isCesnetEligible for sponsored accounts
 
 ## [v2.4.0]
 #### Addded
