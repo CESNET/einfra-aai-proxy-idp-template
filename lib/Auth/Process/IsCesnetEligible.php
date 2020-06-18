@@ -49,7 +49,6 @@ class IsCesnetEligible extends ProcessingFilter
     private $userAffiliationsAttrName;
     private $userSponsoringOrganizationsAttrName;
 
-    private $spEntityId;
     private $idpEntityId;
     private $eduPersonScopedAffiliation = [];
 
@@ -119,7 +118,6 @@ class IsCesnetEligible extends ProcessingFilter
             );
             $user = null;
         }
-        $this->spEntityId = $request['SPMetadata']['entityid'];
         $this->idpEntityId = $request['saml:sp:IdP'];
 
         if (isset($request['Attributes']['eduPersonScopedAffiliation'])) {
