@@ -236,19 +236,24 @@ class IsCesnetEligible extends ProcessingFilter
             }
             $filter .= ')';
 
-            $organizations = $this->cesnetLdapConnector->searchForEntities(
+            $results = $this->cesnetLdapConnector->searchForEntities(
                 self::ORGANIZATION_LDAP_BASE,
                 $filter,
-                ['cesnetcustomeraffiliation']
+                ['cesnetcustomeraffiliation', 'eduIDczScope']
             );
 
-            if (empty($organizations)) {
+            if (empty($results)) {
                 Logger::debug('cesnet:IsCesnetEligible - Received empty response from LDAP for filter'
                     . $filter . '.');
             } else {
-                foreach ($organizations as $organization) {
-                    foreach ($organization['cesnetcustomeraffiliation'] as $affiliation) {
-                        $allowedAffiliations[] = $affiliation;
+                foreach ($results as $result) {
+                    $affiliations = $result['cesnetcustomeraffiliation'] ?? [];
+                    $scopes = $result['eduIDczScope'] ?? [];
+
+                    foreach ($scopes as $scope) {
+                        foreach ($affiliations as $affiliation) {
+                            $allowedAffiliations[] = $affiliation . '@' . $scope;
+                        }
                     }
                 }
             }
@@ -267,14 +272,9 @@ class IsCesnetEligible extends ProcessingFilter
      */
     private function compareAffiliations($userAffiliations, $allowedAffiliations): bool
     {
-        foreach ($userAffiliations as $userAffiliation) {
-            $userAffiliationWithoutScope = explode('@', $userAffiliation)[0];
-            if ($userAffiliationWithoutScope !== null &&
-                !empty($userAffiliationWithoutScope) &&
-                in_array($userAffiliationWithoutScope, $allowedAffiliations, true)
-            ) {
-                return true;
-            }
+        $result = array_intersect($userAffiliations, $allowedAffiliations);
+        if (!empty($result)) {
+            return true;
         }
         return false;
     }
