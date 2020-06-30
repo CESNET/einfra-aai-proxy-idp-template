@@ -3,9 +3,11 @@
 namespace SimpleSAML\Module\cesnet\Auth\Process;
 
 use SimpleSAML\Auth\ProcessingFilter;
+use SimpleSAML\Configuration;
 use SimpleSAML\Module;
 use SimpleSAML\Module\perun\Adapter;
 use SimpleSAML\Module\perun\LdapConnector;
+use SimpleSAML\Module\perun\model\User;
 use SimpleSAML\Module\perun\RpcConnector;
 use SimpleSAML\Module\perun\AdapterLdap;
 use SimpleSAML\Module\perun\AdapterRpc;
@@ -35,13 +37,18 @@ class IsCesnetEligible extends ProcessingFilter
     const LDAP = 'LDAP';
     const RPC = 'RPC';
 
+    const PERUN_USER_AFFILIATIONS_ATTR_NAME = 'perunUserAffiliationsAttrName';
+    const PERUN_USER_SPONSORING_ORGANIZATIONS_ATTR_NAME = 'perunUserSponsoringOrganizationsAttrName';
+
     private $cesnetEligibleLastSeenValue;
     private $interface = self::RPC;
     private $rpcAttrName;
     private $ldapAttrName;
     private $returnAttrName = self::DEFAULT_ATTR_NAME;
 
-    private $spEntityId;
+    private $userAffiliationsAttrName;
+    private $userSponsoringOrganizationsAttrName;
+
     private $idpEntityId;
     private $eduPersonScopedAffiliation = [];
 
@@ -55,10 +62,15 @@ class IsCesnetEligible extends ProcessingFilter
      */
     private $adapter;
 
+    /**
+     * @var AdapterRpc
+     */
+    private $rpcAdapter;
+
     public function __construct($config, $reserved)
     {
         parent::__construct($config, $reserved);
-
+        $conf = Configuration::loadFromArray($config);
         if (!isset($config[self::RPC_ATTRIBUTE_NAME]) || empty($config[self::RPC_ATTRIBUTE_NAME])) {
             throw new Exception(
                 'cesnet:IsCesnetEligible - missing mandatory configuration option \'' .
@@ -69,6 +81,7 @@ class IsCesnetEligible extends ProcessingFilter
         $this->rpcAttrName = $config[self::RPC_ATTRIBUTE_NAME];
 
         $this->cesnetLdapConnector = (new AdapterLdap(self::CONFIG_FILE_NAME))->getConnector();
+        $this->rpcAdapter = Adapter::getInstance(Adapter::RPC);
 
         if (isset($config[self::ATTR_NAME]) && !empty($config[self::ATTR_NAME])) {
             $this->returnAttrName = $config['attrName'];
@@ -86,6 +99,10 @@ class IsCesnetEligible extends ProcessingFilter
             );
             $this->adapter =Adapter::getInstance(Adapter::RPC);
         }
+
+        $this->userSponsoringOrganizationsAttrName =
+            $conf->getString(self::PERUN_USER_SPONSORING_ORGANIZATIONS_ATTR_NAME, null);
+        $this->userAffiliationsAttrName = $conf->getString(self::PERUN_USER_AFFILIATIONS_ATTR_NAME, null);
     }
 
     public function process(&$request)
@@ -101,7 +118,6 @@ class IsCesnetEligible extends ProcessingFilter
             );
             $user = null;
         }
-        $this->spEntityId = $request['SPMetadata']['entityid'];
         $this->idpEntityId = $request['saml:sp:IdP'];
 
         if (isset($request['Attributes']['eduPersonScopedAffiliation'])) {
@@ -137,7 +153,7 @@ class IsCesnetEligible extends ProcessingFilter
             }
         }
 
-        if ($isHostelVerified || (!empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible())) {
+        if ($isHostelVerified || (!empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible($user))) {
             $this->cesnetEligibleLastSeenValue = date('Y-m-d H:i:s');
 
             if (!empty($user)) {
@@ -165,50 +181,78 @@ class IsCesnetEligible extends ProcessingFilter
 
     /**
      * Returns true if one of user's affiliation is in allowed affiliations for this IdP , False if not
+     * @param $user User or Null
      * @return bool
      */
-    private function isCesnetEligible()
+    private function isCesnetEligible($user): bool
     {
-        $allowedAffiliations
-            = $this->getAllowedAffiliations($this->idpEntityId);
-        foreach ($this->eduPersonScopedAffiliation as $userAffiliation) {
-            $userAffiliationWithoutScope = explode('@', $userAffiliation)[0];
-            if ($userAffiliationWithoutScope !== null &&
-                !empty($userAffiliationWithoutScope) &&
-                in_array($userAffiliationWithoutScope, $allowedAffiliations)
-            ) {
-                return true;
-            }
+        $allowedAffiliations = $this->getAllowedAffiliations([$this->idpEntityId]);
+        if ($this->compareAffiliations($this->eduPersonScopedAffiliation, $allowedAffiliations)) {
+            return true;
         }
+
+        # Check if user has isCesnetEligible by sponsoring in some organization
+        try {
+            if (isset($user, $this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName)) {
+                $userAttributes = $this->rpcAdapter->getUserAttributesValues(
+                    $user,
+                    [$this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName]
+                );
+
+                $perunUserAffiliations = $userAttributes[$this->userAffiliationsAttrName] ?? [];
+                $perunUserSponsoringOrganizations = $userAttributes[$this->userSponsoringOrganizationsAttrName] ?? [];
+
+                if (empty($perunUserAffiliations) || empty($perunUserSponsoringOrganizations)) {
+                    return false;
+                }
+
+                $allowedSponsoredAffiliations = $this->getAllowedAffiliations($perunUserSponsoringOrganizations);
+                return $this->compareAffiliations($perunUserAffiliations, $allowedSponsoredAffiliations);
+            }
+        } catch (\Exception $exception) {
+            Logger::error(
+                'cesnet:IsCesnetEligible - Exception '. $exception .
+                ' during computing isCesnetEligible by sponsoring in some organizations'
+            );
+        }
+
         return false;
     }
 
     /**
      * Return list of allowed affiliations for IdP from CESNET LDAP
-     * @param $idpEntityId entityId of IdP
+     * @param $idpEntityIds array of entityId of IdPs
      * @return array of allowed affiliations
      */
-    private function getAllowedAffiliations($idpEntityId)
+    private function getAllowedAffiliations($idpEntityIds): array
     {
         $allowedAffiliations = [];
-
         try {
-            $organization = $this->cesnetLdapConnector->searchForEntity(
+            $filter = '(|';
+            foreach ($idpEntityIds as $idpEntityId) {
+                $filter .= '(entityIDofIdP=' . $idpEntityId . ')';
+            }
+            $filter .= ')';
+
+            $results = $this->cesnetLdapConnector->searchForEntities(
                 self::ORGANIZATION_LDAP_BASE,
-                '(entityIDofIdP=' . $idpEntityId . ')',
-                ['cesnetcustomeraffiliation']
+                $filter,
+                ['cesnetcustomeraffiliation', 'eduIDczScope']
             );
 
-            if (empty($organization)) {
-                Logger::debug('cesnet:IsCesnetEligible - Received empty response from LDAP, entityId '
-                    . $idpEntityId . ' was probably not found.');
-            } elseif (count($organization) > 1) {
-                Logger::error('cesnet:IsCesnetEligible - Received more record from LDAP with entityId '
-                              . $idpEntityId . '.');
+            if (empty($results)) {
+                Logger::debug('cesnet:IsCesnetEligible - Received empty response from LDAP for filter'
+                    . $filter . '.');
             } else {
-                $affiliations = $organization['cesnetcustomeraffiliation'];
-                foreach ($affiliations as $affiliation) {
-                    array_push($allowedAffiliations, $affiliation);
+                foreach ($results as $result) {
+                    $affiliations = $result['cesnetcustomeraffiliation'] ?? [];
+                    $scopes = $result['eduIDczScope'] ?? [];
+
+                    foreach ($scopes as $scope) {
+                        foreach ($affiliations as $affiliation) {
+                            $allowedAffiliations[] = $affiliation . '@' . $scope;
+                        }
+                    }
                 }
             }
         } catch (Exception $ex) {
@@ -216,5 +260,20 @@ class IsCesnetEligible extends ProcessingFilter
         }
 
         return $allowedAffiliations;
+    }
+
+    /**
+     * Compare two lists of affiliations and returns true if one of affiliations without scope is in booth lists.
+     * @param $userAffiliations array of user scoped affiliations
+     * @param $allowedAffiliations array of allowed unscoped affiliations
+     * @return bool
+     */
+    private function compareAffiliations($userAffiliations, $allowedAffiliations): bool
+    {
+        $result = array_intersect($userAffiliations, $allowedAffiliations);
+        if (!empty($result)) {
+            return true;
+        }
+        return false;
     }
 }

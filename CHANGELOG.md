@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Added
+- Add support for isCesnetEligible for sponsored accounts
+
+#### Changed
+- Compare eduPersonScopedAffiliation instead of unscopedAffiliation in isCesnetEligible.php
 
 ## [v2.4.0]
 #### Addded
