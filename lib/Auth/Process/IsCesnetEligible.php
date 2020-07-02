@@ -109,7 +109,7 @@ class IsCesnetEligible extends ProcessingFilter
     {
         assert('is_array($request)');
 
-        if (isset($request['perun']) && isset($request['perun']['user'])) {
+        if (isset($request['perun']['user'])) {
             $user = $request['perun']['user'];
         } else {
             Logger::debug(
