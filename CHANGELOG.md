@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+* Use the correct rpc method for get user attributes from rpc for perun-simplesamlphp-module in version 3.x in IsCesnetEligible.php
 
 ## [v2.5.0]
 #### Added
