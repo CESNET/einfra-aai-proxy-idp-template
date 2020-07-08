@@ -194,7 +194,7 @@ class IsCesnetEligible extends ProcessingFilter
         # Check if user has isCesnetEligible by sponsoring in some organization
         try {
             if (isset($user, $this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName)) {
-                $userAttributes = $this->rpcAdapter->getUserAttributesValues(
+                $userAttributes = $this->rpcAdapter->getUserAttributes(
                     $user,
                     [$this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName]
                 );
