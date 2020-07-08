@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v2.5.0]
 #### Added
 - Add support for isCesnetEligible for sponsored accounts
 
@@ -163,6 +165,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v2.5.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.5.0
 [v2.4.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.4.0
 [v2.3.3]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.3.3
 [v2.3.2]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.3.2
