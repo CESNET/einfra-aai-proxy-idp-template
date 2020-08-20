@@ -78,6 +78,13 @@ class IsCesnetEligible extends ProcessingFilter
             );
         }
 
+        if (isset($this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName)) {
+            Logger::warning(
+                'cesnet:IsCesnetEligible - One of attributes [' . $this->userAffiliationsAttrName . ', ' .
+                $this->userSponsoringOrganizationsAttrName . '] wasn\'t set!'
+            );
+        }
+
         $this->rpcAttrName = $config[self::RPC_ATTRIBUTE_NAME];
 
         $this->cesnetLdapConnector = (new AdapterLdap(self::CONFIG_FILE_NAME))->getConnector();
@@ -203,6 +210,11 @@ class IsCesnetEligible extends ProcessingFilter
                 $perunUserSponsoringOrganizations = $userAttributes[$this->userSponsoringOrganizationsAttrName] ?? [];
 
                 if (empty($perunUserAffiliations) || empty($perunUserSponsoringOrganizations)) {
+                    Logger::debug(
+                        'cesnet:IsCesnetEligible - One of attributes [' . $this->userAffiliationsAttrName . ':' .
+                        $perunUserAffiliations . ', ' . print_r($this->userSponsoringOrganizationsAttrName, true).
+                        ':' . print_r($perunUserSponsoringOrganizations, true) . '] has empty value!'
+                    );
                     return false;
                 }
 
