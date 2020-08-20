@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+* Fixed some bugs in counting isCesnetElibile for sponsored accounts
 
 ## [v2.5.1]
 #### Fixed
