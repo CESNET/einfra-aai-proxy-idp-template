@@ -184,6 +184,17 @@ class IsCesnetEligible extends ProcessingFilter
                 $this->cesnetEligibleLastSeenValue
             );
         }
+
+
+        # TODO:WIP: Set boolean attribute, if user is Eligible or not (< 12 months)
+        $request['Attributes']['isCesnetEligible'] = ['false'];
+        if (($this->cesnetEligibleLastSeenValue !== null) && $this->cesnetEligibleLastSeenValue > date('Y-m-d H:i:s', strtotime('-1 year'))) {
+            $request['Attributes']['isCesnetEligible'] = ['true'];
+            Logger::debug(
+                'cesnet:IsCesnetEligible - Attribute isCesnetEligible was set to true.' );
+        }
+
+
     }
 
     /**
@@ -211,8 +222,8 @@ class IsCesnetEligible extends ProcessingFilter
 
                 if (empty($perunUserAffiliations) || empty($perunUserSponsoringOrganizations)) {
                     Logger::debug(
-                        'cesnet:IsCesnetEligible - One of attributes [' . $this->userAffiliationsAttrName . ':' .
-                        $perunUserAffiliations . ', ' . print_r($this->userSponsoringOrganizationsAttrName, true).
+                        'cesnet:IsCesnetEligible - One of attributes [' . print_r($this->userAffiliationsAttrName, true) . ':' .
+                        print_r($perunUserAffiliations, true) . ', ' . print_r($this->userSponsoringOrganizationsAttrName, true).
                         ':' . print_r($perunUserSponsoringOrganizations, true) . '] has empty value!'
                     );
                     return false;
