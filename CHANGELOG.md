@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+* Fixed the bug in case, that some field from CESNET LDAP has some space around the value
 
 ## [v2.6.0]
 #### Changed
