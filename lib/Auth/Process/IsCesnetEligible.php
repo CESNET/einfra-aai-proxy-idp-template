@@ -186,7 +186,6 @@ class IsCesnetEligible extends ProcessingFilter
         }
 
 
-        # TODO:WIP: Set boolean attribute, if user is Eligible or not (< 12 months)
         $request['Attributes']['isCesnetEligible'] = ['false'];
         if (($this->cesnetEligibleLastSeenValue !== null) && $this->cesnetEligibleLastSeenValue > date('Y-m-d H:i:s', strtotime('-1 year'))) {
             $request['Attributes']['isCesnetEligible'] = ['true'];
@@ -212,7 +211,6 @@ class IsCesnetEligible extends ProcessingFilter
         # Check if user has isCesnetEligible by sponsoring in some organization
         try {
             if (isset($user, $this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName)) {
-                #TODO: For module Perun v4.x.x
                 $userAttributes = $this->rpcAdapter->getUserAttributesValues(
                     $user,
                     [$this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName]
