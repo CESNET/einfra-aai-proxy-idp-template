@@ -272,7 +272,7 @@ class IsCesnetEligible extends ProcessingFilter
 
                     foreach ($scopes as $scope) {
                         foreach ($affiliations as $affiliation) {
-                            $allowedAffiliations[] = $affiliation . '@' . $scope;
+                            $allowedAffiliations[] = trim($affiliation) . '@' . trim($scope);
                         }
                     }
                 }
