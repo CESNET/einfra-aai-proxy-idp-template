@@ -2,8 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v2.6.1]
 #### Fixed
 * Fixed the bug in case, that some field from CESNET LDAP has some space around the value
+
+#### Changed
+* Change logo for Facebook
 
 ## [v2.6.0]
 #### Changed
@@ -180,6 +185,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v2.6.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.6.1
 [v2.6.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.6.0
 [v2.5.2]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.5.2
 [v2.5.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.5.1
