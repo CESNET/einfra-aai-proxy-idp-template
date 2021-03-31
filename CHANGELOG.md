@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Changed
+* Updated disco-tpl.php to be compatible with the new style of configuration from module Perun v5.0
 
 ## [v2.6.1]
 #### Fixed

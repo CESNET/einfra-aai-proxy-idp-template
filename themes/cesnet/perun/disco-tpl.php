@@ -5,7 +5,9 @@ use SimpleSAML\Utils\HTTP;
 use SimpleSAML\Configuration;
 use SimpleSAML\Logger;
 use SimpleSAML\Error\Exception;
+use SimpleSAML\Module\perun\Disco;
 use SimpleSAML\Module\perun\DiscoTemplate;
+use SimpleSAML\Module\perun\model\WarningConfiguration;
 
 /**
  * This is simple example of template for perun Discovery service
@@ -24,10 +26,6 @@ const URN_CESNET_PROXYIDP_FILTER = "urn:cesnet:proxyidp:filter:";
 const URN_CESNET_PROXYIDP_EFILTER = "urn:cesnet:proxyidp:efilter:";
 const URN_CESNET_PROXYIDP_IDPENTITYID = "urn:cesnet:proxyidp:idpentityid:";
 
-const WARNING_TYPE_INFO = 'INFO';
-const WARNING_TYPE_WARNING = 'WARNING';
-const WARNING_TYPE_ERROR = 'ERROR';
-
 $metadata = MetaDataStorageHandler::getMetadataHandler();
 $idpmeta = $metadata->getMetaData('https://login.cesnet.cz/idp/', 'saml20-idp-hosted');
 
@@ -38,12 +36,10 @@ $authContextClassRef = null;
 $defaultFilter = null;
 $defaultEFilter = null;
 
-$warningIsOn = $this->data['warningIsOn'];
-$warningType = $this->data['warningType'];
-$warningTitle = $this->data['warningTitle'];
-$warningText = $this->data['warningText'];
+$wayfConfig = $this->data[Disco::WAYF];
+$warningAttributes = $this->data[Disco::WARNING_ATTRIBUTES];
 
-if ($warningIsOn) {
+if ($warningAttributes->isEnabled()) {
     $this->data['header'] = $this->t('{cesnet:einfra:warning}');
 }
 
@@ -82,18 +78,19 @@ if ($idpEntityId != null) {
 } else {
     $url = $this->getContinueUrlWithoutIdPEntityId();
 
-    if ($warningIsOn) {
-        if ($warningType === WARNING_TYPE_INFO) {
+    if ($warningAttributes->isEnabled()) {
+        if ($warningAttributes->getType() === WarningConfiguration::WARNING_TYPE_INFO) {
             echo '<div class="alert alert-info">';
-        } elseif ($warningType === WARNING_TYPE_WARNING) {
+        } elseif ($warningAttributes->getType() === WarningConfiguration::WARNING_TYPE_WARNING) {
             echo '<div class="alert alert-warning">';
-        } elseif ($warningType === WARNING_TYPE_ERROR) {
+        } elseif ($warningAttributes->getType() === WarningConfiguration::WARNING_TYPE_ERROR) {
             echo '<div class="alert alert-danger">';
         }
-        echo '<h4> <strong>' . $warningTitle . '</strong> </h4>';
-        echo $warningText;
+        echo '<h4> <strong>' . $warningAttributes->getTitle() . '</strong> </h4>';
+        echo $warningAttributes->getText();
         echo '</div>';
-        if ($warningType === WARNING_TYPE_INFO || $warningType === WARNING_TYPE_WARNING) {
+        if (in_array($warningAttributes->getType(),
+            [WarningConfiguration::WARNING_TYPE_INFO, WarningConfiguration::WARNING_TYPE_WARNING], true)) {
             echo '<form method="POST">';
             echo '<input class="btn btn-lg btn-primary btn-block" type="submit" name="continue" value="Continue" />';
             echo '</form>';
@@ -103,7 +100,11 @@ if ($idpEntityId != null) {
     }
 
     if ($canContinue &&
-        (!$warningIsOn || $warningType === WARNING_TYPE_INFO || $warningType === WARNING_TYPE_WARNING)) {
+        (!$warningAttributes->isEnabled() ||
+            in_array($warningAttributes->getType(),
+                [WarningConfiguration::WARNING_TYPE_INFO, WarningConfiguration::WARNING_TYPE_WARNING],
+                true)
+        )) {
         if ($efilter != null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&efilter=' . $efilter);
             exit;
