@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - Security improvements in script calls
 * Add theme 'einfra'
 
+# [v2.7.0]
 #### Changed
 * Updated disco-tpl.php to be compatible with the new style of configuration from module Perun v5.0
 
@@ -191,6 +192,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v2.7.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.7.0
 [v2.6.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.6.1
 [v2.6.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.6.0
 [v2.5.2]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.5.2
