@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v2.8.0]
 #### Added
 - Security improvements in script calls
 * Add theme 'einfra'
@@ -192,6 +194,7 @@ the eduid filter (More information about this filter you can get [here] )
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/master
+[v2.8.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.8.0
 [v2.7.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.7.0
 [v2.6.1]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.6.1
 [v2.6.0]: https://github.com/CESNET/einfra-aai-proxy-idp-template/tree/v2.6.0
