@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Added
+- Security improvements in script calls
+
 #### Changed
 * Updated disco-tpl.php to be compatible with the new style of configuration from module Perun v5.0
 
