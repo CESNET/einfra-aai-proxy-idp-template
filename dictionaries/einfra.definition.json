@@ -6,11 +6,23 @@
     "en": "OTHER CESNET PROJECTS",
     "cs": "OSTATNÍ PROJEKTY"
   },
+  "footer_other_links": {
+    "en": "LINKS",
+    "cs": "RYCHLÉ ODKAZY"
+  },
   "footer_helpdesk": {
     "en": "HELPDESK"
   },
   "warning": {
     "en": "Warning!",
     "cs": "Varování!"
+  },
+  "username": {
+    "en": "Login",
+    "cs": "Login"
+  },
+  "user_pass_text": {
+    "en": "A service has requested you to authenticate yourself. </br>Please enter your login and password in the form below.",
+    "cs": "Služba požaduje vaši identifikaci. Prosím vložte svůj login a heslo, které jste si zvolili během registrace."
   }
 }
