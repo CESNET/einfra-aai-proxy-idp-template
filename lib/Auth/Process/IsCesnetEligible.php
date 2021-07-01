@@ -96,13 +96,6 @@ class IsCesnetEligible extends ProcessingFilter
             );
         }
 
-        if (isset($this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName)) {
-            Logger::warning(
-                'cesnet:IsCesnetEligible - One of attributes [' . $this->userAffiliationsAttrName . ', ' .
-                $this->userSponsoringOrganizationsAttrName . '] wasn\'t set!'
-            );
-        }
-
         $this->rpcAttrName = $config[self::RPC_ATTRIBUTE_NAME];
         $this->pathToKey = $config[self::PATH_TO_KEY];
 
@@ -135,6 +128,13 @@ class IsCesnetEligible extends ProcessingFilter
         $this->userSponsoringOrganizationsAttrName =
             $conf->getString(self::PERUN_USER_SPONSORING_ORGANIZATIONS_ATTR_NAME, null);
         $this->userAffiliationsAttrName = $conf->getString(self::PERUN_USER_AFFILIATIONS_ATTR_NAME, null);
+
+        if (!isset($this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName)) {
+            Logger::warning(
+                'cesnet:IsCesnetEligible - One of attributes [' . $this->userAffiliationsAttrName . ', ' .
+                $this->userSponsoringOrganizationsAttrName . '] wasn\'t set!'
+            );
+        }
     }
 
     public function process(&$request)

@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file.
 - Security improvements in script calls
 * Add theme 'einfra'
 
+#### Fixed
+- isCesnetEligible - wrong 'attribute was set' check
+
 # [v2.7.0]
 #### Changed
 * Updated disco-tpl.php to be compatible with the new style of configuration from module Perun v5.0
