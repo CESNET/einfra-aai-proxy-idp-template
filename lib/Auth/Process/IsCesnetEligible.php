@@ -300,9 +300,9 @@ class IsCesnetEligible extends ProcessingFilter
 
                 if (empty($perunUserAffiliations) || empty($perunUserSponsoringOrganizations)) {
                     Logger::debug(
-                        'cesnet:IsCesnetEligible - One of attributes [' . print_r($this->userAffiliationsAttrName, true) . ':' .
-                        print_r($perunUserAffiliations, true) . ', ' . print_r($this->userSponsoringOrganizationsAttrName, true).
-                        ':' . print_r($perunUserSponsoringOrganizations, true) . '] has empty value!'
+                        'cesnet:IsCesnetEligible - One of attributes [' . $this->userAffiliationsAttrName . ':' .
+                        json_encode($perunUserAffiliations) . ', ' . $this->userSponsoringOrganizationsAttrName.
+                        ':' . json_encode($perunUserSponsoringOrganizations) . '] has empty value!'
                     );
                     return false;
                 }
