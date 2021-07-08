@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 - isCesnetEligible - wrong 'attribute was set' check
+- Each log has just one line output
 
 # [v2.7.0]
 #### Changed
