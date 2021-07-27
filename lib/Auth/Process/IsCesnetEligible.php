@@ -2,11 +2,6 @@
 
 namespace SimpleSAML\Module\cesnet\Auth\Process;
 
-use Jose\Component\Core\AlgorithmManager;
-use Jose\Component\KeyManagement\JWKFactory;
-use Jose\Component\Signature\Algorithm\RS512;
-use Jose\Component\Signature\JWSBuilder;
-use Jose\Component\Signature\Serializer\CompactSerializer;
 use SimpleSAML\Auth\ProcessingFilter;
 use SimpleSAML\Configuration;
 use SimpleSAML\Module;
@@ -14,7 +9,6 @@ use SimpleSAML\Module\perun\Adapter;
 use SimpleSAML\Module\perun\ChallengeManager;
 use SimpleSAML\Module\perun\LdapConnector;
 use SimpleSAML\Module\perun\model\User;
-use SimpleSAML\Module\perun\RpcConnector;
 use SimpleSAML\Module\perun\AdapterLdap;
 use SimpleSAML\Module\perun\AdapterRpc;
 use SimpleSAML\Logger;
@@ -43,8 +37,6 @@ class IsCesnetEligible extends ProcessingFilter
     const LDAP = 'LDAP';
     const RPC = 'RPC';
     const SCRIPT_NAME = 'updateIsCesnetEligible';
-    const PATH_TO_KEY = 'pathToKey';
-    const SIGNATURE_ALG = 'signatureAlg';
 
     const PERUN_USER_AFFILIATIONS_ATTR_NAME = 'perunUserAffiliationsAttrName';
     const PERUN_USER_SPONSORING_ORGANIZATIONS_ATTR_NAME = 'perunUserSponsoringOrganizationsAttrName';
@@ -60,9 +52,6 @@ class IsCesnetEligible extends ProcessingFilter
 
     private $idpEntityId;
     private $eduPersonScopedAffiliation = [];
-
-    private $pathToKey;
-    private $signatureAlg;
 
     /**
      * @var LdapConnector
@@ -90,14 +79,7 @@ class IsCesnetEligible extends ProcessingFilter
             );
         }
 
-        if (!isset($config[self::PATH_TO_KEY])) {
-            throw new Exception(
-                'cesnet:isCesnetEligible: missing mandatory configuration option \'pathToKey\'.'
-            );
-        }
-
         $this->rpcAttrName = $config[self::RPC_ATTRIBUTE_NAME];
-        $this->pathToKey = $config[self::PATH_TO_KEY];
 
         $this->cesnetLdapConnector = (new AdapterLdap(self::CONFIG_FILE_NAME))->getConnector();
         $this->rpcAdapter = Adapter::getInstance(Adapter::RPC);
@@ -119,12 +101,6 @@ class IsCesnetEligible extends ProcessingFilter
             $this->adapter =Adapter::getInstance(Adapter::RPC);
         }
 
-        if (isset($config[self::SIGNATURE_ALG])) {
-            $this->signatureAlg = (array)$config[self::SIGNATURE_ALG];
-        } else {
-            $this->signatureAlg = 'RS512';
-        }
-
         $this->userSponsoringOrganizationsAttrName =
             $conf->getString(self::PERUN_USER_SPONSORING_ORGANIZATIONS_ATTR_NAME, null);
         $this->userAffiliationsAttrName = $conf->getString(self::PERUN_USER_AFFILIATIONS_ATTR_NAME, null);
@@ -139,8 +115,6 @@ class IsCesnetEligible extends ProcessingFilter
 
     public function process(&$request)
     {
-        assert('is_array($request)');
-
         if (isset($request['perun']['user'])) {
             $user = $request['perun']['user'];
         } else {
@@ -191,68 +165,22 @@ class IsCesnetEligible extends ProcessingFilter
             if (!empty($user)) {
                 // Update attribute 'isCesnetEligible' in Perun
 
-                $id = uniqid();
+                $id = uniqid("", true);
 
-                $dataChallenge = [
-                    'id' => $id,
-                    'scriptName' => self::SCRIPT_NAME
+                $challengeManager = new ChallengeManager();
+
+                $data= [
+                    'userId' => $user->getId(),
+                    'isCesnetEligibleValue' => $this->cesnetEligibleLastSeenValue,
+                    'cesnetEligibleLastSeenAttrName' => $this->rpcAttrName
                 ];
 
-                $json = json_encode($dataChallenge);
+                $token = $challengeManager->generateToken($id, self::SCRIPT_NAME, $data);
 
-                $curlChallenge = curl_init();
-                curl_setopt($curlChallenge, CURLOPT_POSTFIELDS, $json);
-                curl_setopt($curlChallenge, CURLOPT_URL, Module::getModuleURL('perun/getChallenge.php'));
-                curl_setopt($curlChallenge, CURLOPT_RETURNTRANSFER, true);
+                $cmd = 'curl -X POST -H "Content-Type: application/json" -d \'' . json_encode($token) . '\' ' .
+                    Module::getModuleURL('cesnet/updateIsCesnetEligible.php') . ' > /dev/null &';
 
-                $challenge = curl_exec($curlChallenge);
-
-                if (curl_errno($curlChallenge)) {
-                    $error_msg = curl_error($curlChallenge);
-                    Logger::error('cesnet:IsCesnetEligible - ' . $error_msg);
-                }
-
-                curl_close($curlChallenge);
-
-                if (!empty($challenge)) {
-                    $jwk = JWKFactory::createFromKeyFile($this->pathToKey);
-                    $algorithmManager = new AlgorithmManager(
-                        [
-                            ChallengeManager::getAlgorithm('Signature\\Algorithm', $this->signatureAlg)
-                        ]
-                    );
-                    $jwsBuilder = new JWSBuilder($algorithmManager);
-
-                    $data= [
-                        'userId' => $user->getId(),
-                        'isCesnetEligibleValue' => $this->cesnetEligibleLastSeenValue,
-                        'cesnetEligibleLastSeenAttrName' => $this->rpcAttrName
-                    ];
-
-                    $payload = json_encode([
-                        'iat' => time(),
-                        'nbf' => time(),
-                        'exp' => time() + 3600,
-                        'challenge' => $challenge,
-                        'id' => $id,
-                        'data' => $data
-                    ]);
-
-                    $jws = $jwsBuilder
-                        ->create()
-                        ->withPayload($payload)
-                        ->addSignature($jwk, ['alg' => $this->signatureAlg])
-                        ->build();
-
-                    $serializer = new CompactSerializer();
-                    $token = $serializer->serialize($jws, 0);
-
-                    $cmd = 'curl -X POST -H "Content-Type: application/json" -d \'' . json_encode($token) . '\' ' .
-                        Module::getModuleURL('cesnet/updateIsCesnetEligible.php') . ' > /dev/null &';
-                    exec($cmd);
-                } else {
-                    Logger::error('cesnet:IsCesnetEligible - Retrieving the challenge was not successful.');
-                }
+                exec($cmd);
             }
         }
 
