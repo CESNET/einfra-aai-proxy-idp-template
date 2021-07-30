@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\cesnet\Auth\Process;
 
-use SimpleSAML\Metadata\MetaDataStorageHandler;
 use SimpleSAML\Logger;
+use SimpleSAML\Metadata\MetaDataStorageHandler;
 
 /**
  * Class ComputeLoA
@@ -14,18 +16,26 @@ use SimpleSAML\Logger;
  */
 class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
 {
-    const UNIVERSITY = 'university';
-    const AVCR = 'avcr';
-    const LIBRARY = 'library';
-    const HOSPITAL = 'hospital';
-    const OTHER = 'other';
-    const EDUID_IDP_GROUP = 'http://eduid.cz/uri/idp-group/';
-    const DEFAULT_ATTR_NAME = 'loa';
+    public const UNIVERSITY = 'university';
+
+    public const AVCR = 'avcr';
+
+    public const LIBRARY = 'library';
+
+    public const HOSPITAL = 'hospital';
+
+    public const OTHER = 'other';
+
+    public const EDUID_IDP_GROUP = 'http://eduid.cz/uri/idp-group/';
+
+    public const DEFAULT_ATTR_NAME = 'loa';
 
     private $attrName;
 
     private $metadata;
+
     private $entityCategory = null;
+
     private $eduPersonScopedAffiliation = [];
 
     public function __construct($config, $reserved)
@@ -54,7 +64,7 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
         } else {
             Logger::error('cesnet:ComputeLoA - There are no element with name \'EntityAttributes\' '
                 . 'and subelement with name \'http://macedir.org/entity-category\' in metadata for IdP with entityId '
-                . $request['saml:sp:IdP'] . "!");
+                . $request['saml:sp:IdP'] . '!');
             $entityCategoryAttributes = [];
         }
 
@@ -84,11 +94,11 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
 
     /**
      * Get LoA by CESNET filter
+     *
      * @return int 2 if combination of IdP attributes and User attributes corresponds to the filter, 0 if not
      */
     private function getLoA()
     {
-
         if ($this->entityCategory === null || empty($this->entityCategory)) {
             return 0;
         } elseif ($this->entityCategory === self::UNIVERSITY) {

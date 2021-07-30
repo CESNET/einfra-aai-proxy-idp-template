@@ -1,18 +1,19 @@
-﻿<?php
+<?php
 
-use SimpleSAML\Metadata\MetaDataStorageHandler;
-use SimpleSAML\Utils\HTTP;
-use SimpleSAML\Configuration;
-use SimpleSAML\Logger;
+declare(strict_types=1);
+
 use SimpleSAML\Error\Exception;
+use SimpleSAML\Metadata\MetaDataStorageHandler;
 use SimpleSAML\Module\perun\Disco;
 use SimpleSAML\Module\perun\DiscoTemplate;
 use SimpleSAML\Module\perun\model\WarningConfiguration;
+use SimpleSAML\Utils\HTTP;
 
 /**
  * This is simple example of template for perun Discovery service
  *
  * Allow type hinting in IDE
+ *
  * @var DiscoTemplate $this
  */
 
@@ -22,9 +23,9 @@ if (isset($_POST['continue'])) {
     $canContinue = true;
 }
 
-const URN_CESNET_PROXYIDP_FILTER = "urn:cesnet:proxyidp:filter:";
-const URN_CESNET_PROXYIDP_EFILTER = "urn:cesnet:proxyidp:efilter:";
-const URN_CESNET_PROXYIDP_IDPENTITYID = "urn:cesnet:proxyidp:idpentityid:";
+const URN_CESNET_PROXYIDP_FILTER = 'urn:cesnet:proxyidp:filter:';
+const URN_CESNET_PROXYIDP_EFILTER = 'urn:cesnet:proxyidp:efilter:';
+const URN_CESNET_PROXYIDP_IDPENTITYID = 'urn:cesnet:proxyidp:idpentityid:';
 
 $metadata = MetaDataStorageHandler::getMetadataHandler();
 $idpmeta = $metadata->getMetaData('https://login.cesnet.cz/idp/', 'saml20-idp-hosted');
@@ -55,10 +56,14 @@ if (isset($idpmeta['defaultEFilter'])) {
     $defaultEFilter = $idpmeta['defaultEFilter'];
 }
 
-$this->data['jquery'] = ['core' => true, 'ui' => true, 'css' => true];
+$this->data['jquery'] = [
+    'core' => true,
+    'ui' => true,
+    'css' => true,
+];
 $this->includeAtTemplateBase('includes/header.php');
 
-if ($authContextClassRef != null) {
+if ($authContextClassRef !== null) {
     foreach ($authContextClassRef as $value) {
         if (substr($value, 0, strlen(URN_CESNET_PROXYIDP_FILTER)) === URN_CESNET_PROXYIDP_FILTER) {
             $filter = substr($value, strlen(URN_CESNET_PROXYIDP_FILTER), strlen($value));
@@ -70,12 +75,12 @@ if ($authContextClassRef != null) {
     }
 }
 
-if ($idpEntityId != null) {
+if ($idpEntityId !== null) {
     $url = $this->getContinueUrl($idpEntityId);
 
     HTTP::redirectTrustedURL($url);
     exit;
-} else {
+}
     $url = $this->getContinueUrlWithoutIdPEntityId();
 
     if ($warningAttributes->isEnabled()) {
@@ -89,8 +94,11 @@ if ($idpEntityId != null) {
         echo '<h4> <strong>' . $warningAttributes->getTitle() . '</strong> </h4>';
         echo $warningAttributes->getText();
         echo '</div>';
-        if (in_array($warningAttributes->getType(),
-            [WarningConfiguration::WARNING_TYPE_INFO, WarningConfiguration::WARNING_TYPE_WARNING], true)) {
+        if (in_array(
+            $warningAttributes->getType(),
+            [WarningConfiguration::WARNING_TYPE_INFO, WarningConfiguration::WARNING_TYPE_WARNING],
+            true
+        )) {
             echo '<form method="POST">';
             echo '<input class="btn btn-lg btn-primary btn-block" type="submit" name="continue" value="Continue" />';
             echo '</form>';
@@ -100,15 +108,18 @@ if ($idpEntityId != null) {
     }
 
     if ($canContinue &&
-        (!$warningAttributes->isEnabled() ||
-            in_array($warningAttributes->getType(),
+        (
+            ! $warningAttributes->isEnabled() ||
+            in_array(
+                $warningAttributes->getType(),
                 [WarningConfiguration::WARNING_TYPE_INFO, WarningConfiguration::WARNING_TYPE_WARNING],
-                true)
+                true
+            )
         )) {
-        if ($efilter != null) {
+        if ($efilter !== null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&efilter=' . $efilter);
             exit;
-        } elseif ($filter != null) {
+        } elseif ($filter !== null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $filter);
             exit;
         } elseif (isset($this->data['originalsp']['efilter'])) {
@@ -119,16 +130,15 @@ if ($idpEntityId != null) {
             $filter = $this->data['originalsp']['filter'];
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $filter);
             exit;
-        } elseif ($defaultEFilter != null) {
+        } elseif ($defaultEFilter !== null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&efilter=' . $defaultEFilter);
             exit;
-        } elseif ($defaultFilter != null) {
+        } elseif ($defaultFilter !== null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $defaultFilter);
             exit;
-        } else {
-            throw new Exception('cesnet:disco-tpl: Filter did not set. ');
         }
+        throw new Exception('cesnet:disco-tpl: Filter did not set. ');
     }
-}
+
 
 $this->includeAtTemplateBase('includes/footer.php');

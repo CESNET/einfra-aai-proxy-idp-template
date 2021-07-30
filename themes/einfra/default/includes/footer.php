@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 use SimpleSAML\Module;
 
-if (!empty($this->data['htmlinject']['htmlContentPost'])) {
+if (! empty($this->data['htmlinject']['htmlContentPost'])) {
     foreach ($this->data['htmlinject']['htmlContentPost'] as $c) {
         echo $c;
     }
@@ -51,7 +51,7 @@ if (!empty($this->data['htmlinject']['htmlContentPost'])) {
             </div>
             <div class="row">
                 <div class="col col-sm-12 copyright">
-                    © 1991– <?php echo date("Y"); ?> | CESNET, z. s. p. o.
+                    © 1991– <?php echo date('Y'); ?> | CESNET, z. s. p. o.
                 </div>
             </div>
         </div>

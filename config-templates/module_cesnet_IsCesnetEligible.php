@@ -1,13 +1,14 @@
 <?php
+
+declare(strict_types=1);
+
 /**
- * This is example configuration of SimpleSAMLphp cesnet module IsCecsnetEligible.
- * Copy this file to default config directory and edit the properties.
+ * This is example configuration of SimpleSAMLphp cesnet module IsCecsnetEligible. Copy this file to default config
+ * directory and edit the properties.
  *
- * copy command (from SimpleSAML base dir)
- * cp modules/perun/module_cesnet_IsCesnetEligible.php config/
+ * copy command (from SimpleSAML base dir) cp modules/perun/module_cesnet_IsCesnetEligible.php config/
  */
 $config = [
-
     /**
      * hostname of CESNET ldap with ldap(s):// at the beginning.
      */
@@ -19,5 +20,4 @@ $config = [
     'ldap.username' => '',
     'ldap.password' => '',
     'ldap.base' => '',
-
 ];

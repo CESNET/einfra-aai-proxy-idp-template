@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Script for updating IsCesnetEligible in Perun asynchronously
  *
@@ -38,7 +40,10 @@ try {
     $cesnetEligibleLastSeenAttribute = $rpcConnector->get(
         'attributesManager',
         'getAttribute',
-        ['user' => $userId, 'attributeName' => $isCesnetEligibleLastSeenAttrName]
+        [
+            'user' => $userId,
+            'attributeName' => $isCesnetEligibleLastSeenAttrName,
+        ]
     );
 
     $cesnetEligibleLastSeenAttribute['value'] = $isCesnetEligibleValue;
@@ -46,7 +51,10 @@ try {
     $rpcConnector->post(
         'attributesManager',
         'setAttribute',
-        ['user' => $userId, 'attribute' => $cesnetEligibleLastSeenAttribute]
+        [
+            'user' => $userId,
+            'attribute' => $cesnetEligibleLastSeenAttribute,
+        ]
     );
 
     Logger::debug(
