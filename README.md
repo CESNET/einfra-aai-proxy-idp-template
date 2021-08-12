@@ -1,7 +1,7 @@
 # einfra-aai-proxy-idp-template
 [![Latest Stable Version](https://poser.pugx.org/cesnet/simplesamlphp-module-cesnet/v/stable)](https://packagist.org/packages/cesnet/simplesamlphp-module-cesnet)
 [![Latest Unstable Version](https://poser.pugx.org/cesnet/simplesamlphp-module-cesnet/v/unstable)](https://packagist.org/packages/cesnet/simplesamlphp-module-cesnet)
-[![Build and CI](https://github.com/cesnet/einfra-aai-proxy-idp-template/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/cesnet/einfra-aai-proxy-idp-template/actions/workflows/build_and_check.yml)
+[![Build and CI](https://github.com/cesnet/einfra-aai-proxy-idp-template/actions/workflows/build_and_check.yml/badge.svg)](https://github.com/cesnet/einfra-aai-proxy-idp-template/actions/workflows/build_and_check.yml)
 [![License](https://poser.pugx.org/cesnet/simplesamlphp-module-cesnet/license)](https://packagist.org/packages/cesnet/simplesamlphp-module-cesnet)
 
 Template for CESNET eInfra Proxy IdP component
