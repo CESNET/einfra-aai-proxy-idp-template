@@ -26,32 +26,30 @@ if (! empty($this->data['htmlinject']['htmlContentPost'])) {
                         <div class="col col-sm-6">
                             <h2> <?php echo $this->t('{cesnet:einfra:footer_other_links}'); ?></h2>
                             <ul>
-                                <li><?php echo '<a href="' . $this->t('{cesnet:links:metacentrum_link}') . '">' .
-                                        $this->t('{cesnet:links:metacentrum_name}') . '</a>'; ?></li>
-                                <li><?php echo '<a href="' . $this->t('{cesnet:links:data_storage_link}') . '">' .
-                                        $this->t('{cesnet:links:data_storage_name}') . '</a>'; ?></li>
-                                <li><?php echo '<a href="' . $this->t('{cesnet:links:meetings_link}') . '">' .
-                                        $this->t('{cesnet:links:meetings_name}') . '</a>'; ?></li>
-                                <li><?php echo '<a href="' . $this->t('{cesnet:links:certificate_link}') . '">' .
-                                        $this->t('{cesnet:links:certificate_name}') . '</a>'; ?></li>
-                                <li><?php echo '<a href="' . $this->t('{cesnet:links:services_link}') . '">' .
-                                        $this->t('{cesnet:links:services_name}') . '</a>'; ?></li>
-                                <li><?php echo '<a href="' . $this->t('{cesnet:links:data_protection_link}') . '">' .
-                                        $this->t('{cesnet:links:data_protection_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:einfra_links:einfra_link}') . '">' .
+                                        $this->t('{cesnet:einfra_links:einfra_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:einfra_links:cesnet_link}') . '">' .
+                                        $this->t('{cesnet:einfra_links:cesnet_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:einfra_links:ceritsc_link}') . '">' .
+                                        $this->t('{cesnet:einfra_links:ceritsc_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:einfra_links:it4i_link}') . '">' .
+                                        $this->t('{cesnet:einfra_links:it4i_name}') . '</a>'; ?></li>
+                                <li><?php echo '<a href="' . $this->t('{cesnet:einfra_links:data_protection_link}') .
+                                        '">' . $this->t('{cesnet:einfra_links:data_protection_name}') . '</a>'; ?></li>
                             </ul>
                         </div>
                         <div class="col col-sm-6">
                             <h2><?php echo $this->t('{cesnet:einfra:footer_helpdesk}'); ?></h2>
                             TEL: +420 234 680 222<br>
                             GSM: +420 602 252 531<br>
-                            <a href="mailto:login@cesnet.cz">login@cesnet.cz</a>
+                            <a href="mailto:login@e-infra.cz">support@e-infra.cz</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col col-sm-12 copyright">
-                    © 1991– <?php echo date('Y'); ?> | CESNET, z. s. p. o.
+                    © <?php echo date('Y'); ?> | <a href="https://www.e-infra.cz">e-INFRA CZ</a>
                 </div>
             </div>
         </div>
