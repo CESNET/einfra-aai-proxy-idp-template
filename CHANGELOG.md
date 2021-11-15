@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.0.3...v3.1.0) (2021-11-15)
+
+
+### Features
+
+* prepare theme:einfra_idp ([9c3abf1](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/9c3abf1285169d8e4cc053d06b32e530a6ca2f0b))
+
 ## [3.0.3](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.0.2...v3.0.3) (2021-11-15)
 
 
