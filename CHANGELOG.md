@@ -1,3 +1,10 @@
+## [3.0.2](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.0.1...v3.0.2) (2021-11-15)
+
+
+### Bug Fixes
+
+* fix the translations ([7afa534](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/7afa53422a1afc23c338600d8e1b3836f4bca85d))
+
 ## [3.0.1](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.0.0...v3.0.1) (2021-11-15)
 
 
