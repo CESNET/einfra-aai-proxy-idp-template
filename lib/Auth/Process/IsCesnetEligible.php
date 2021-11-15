@@ -25,8 +25,6 @@ use SimpleSAML\Module\perun\model\User;
  *
  * This class put the timestamp of last login into list of Attributes, when at least one value of attribute
  * 'eduPersonScopedAffiliation' is marked as isCesnetEligible in CESNET LDAP
- *
- * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
 class IsCesnetEligible extends ProcessingFilter
 {

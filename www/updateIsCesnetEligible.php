@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 /**
  * Script for updating IsCesnetEligible in Perun asynchronously
- *
- * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
 
 use SimpleSAML\Error\Exception;

@@ -11,8 +11,6 @@ use SimpleSAML\Metadata\MetaDataStorageHandler;
  * Class ComputeLoA
  *
  * Filter compute the LoA and save it to attribute defined by 'attrName' config property.
- *
- * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
 class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
 {
