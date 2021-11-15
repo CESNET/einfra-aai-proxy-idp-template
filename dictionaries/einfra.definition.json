@@ -24,5 +24,17 @@
   "user_pass_text": {
     "en": "A service has requested you to authenticate yourself. </br>Please enter your login and password in the form below.",
     "cs": "Služba požaduje vaši identifikaci. Prosím vložte svůj login a heslo, které jste si zvolili během registrace."
+  },
+  "user_pass_header": {
+    "en": "Enter your login and password",
+    "cs": "Vložte svůj login a heslo"
+  },
+  "loginuserpass_error_title": {
+  "en": "Incorrect login or password",
+  "cs": "Neplatný login a heslo"
+  },
+  "loginuserpass_error_text": {
+    "en": "Either no user with the given login could be found, or the password you gave was wrong. Please check the login and try again.",
+    "cs": "Uživatel s daným loginem buď nebyl nalezen, nebo jste zadal špatné heslo. Prosím zkontrolujte login a zkuste se přihlásit znovu."
   }
 }
