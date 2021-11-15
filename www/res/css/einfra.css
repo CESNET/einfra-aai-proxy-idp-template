@@ -80,7 +80,7 @@ a:hover, a:active {
 #header {
 	margin: auto;
     background: #fff;
-    max-width: 720px;
+    max-width: 960px;
 }
 #header h1 {
 	line-height: 32px;
@@ -116,7 +116,7 @@ a:hover, a:active {
 
 #languagebar {
     margin:0 auto;
-    max-width: 720px;
+    max-width: 960px;
     color: #ffffff;
     height: 25px;
     text-decoration: none;
@@ -137,7 +137,7 @@ a:hover, a:active {
 
 #content {
 	margin: 0 auto;
-    max-width: 720px;
+    max-width: 960px;
 }
 
 .btn:hover {
