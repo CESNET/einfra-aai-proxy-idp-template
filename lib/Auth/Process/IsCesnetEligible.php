@@ -7,14 +7,10 @@ namespace SimpleSAML\Module\cesnet\Auth\Process;
 use SimpleSAML\Auth\ProcessingFilter;
 use SimpleSAML\Configuration;
 use SimpleSAML\Error\Exception;
-use SimpleSAML\Error\Exception;
-use SimpleSAML\Logger;
 use SimpleSAML\Logger;
 use SimpleSAML\Module;
 use SimpleSAML\Module\perun\Adapter;
 use SimpleSAML\Module\perun\AdapterLdap;
-use SimpleSAML\Module\perun\AdapterLdap;
-use SimpleSAML\Module\perun\AdapterRpc;
 use SimpleSAML\Module\perun\AdapterRpc;
 use SimpleSAML\Module\perun\ChallengeManager;
 use SimpleSAML\Module\perun\LdapConnector;
@@ -47,26 +43,6 @@ class IsCesnetEligible extends ProcessingFilter
     public const RPC = 'RPC';
 
     public const SCRIPT_NAME = 'updateIsCesnetEligible';
-
-    public const INTERFACE_PROPNAME = 'interface';
-
-    public const ATTR_NAME = 'attrName';
-
-    public const RPC_ATTRIBUTE_NAME = 'RPC.attributeName';
-
-    public const LDAP_ATTRIBUTE_NAME = 'LDAP.attributeName';
-
-    public const DEFAULT_ATTR_NAME = 'isCesnetEligibleLastSeen';
-
-    public const LDAP = 'LDAP';
-
-    public const RPC = 'RPC';
-
-    public const SCRIPT_NAME = 'updateIsCesnetEligible';
-
-    public const PATH_TO_KEY = 'pathToKey';
-
-    public const SIGNATURE_ALG = 'signatureAlg';
 
     public const PERUN_USER_AFFILIATIONS_ATTR_NAME = 'perunUserAffiliationsAttrName';
 
@@ -173,15 +149,6 @@ class IsCesnetEligible extends ProcessingFilter
             );
         }
 
-        $isHostelVerified = false;
-        if ($request['saml:sp:IdP'] === self::HOSTEL_ENTITY_ID &&
-            isset($request['Attributes']['loa'])
-            && (int) $request['Attributes']['loa'][0] === 2
-        ) {
-            $isHostelVerified = true;
-            Logger::debug('cesnet:IsCesnetEligible - The user was verified by Hostel.');
-        }
-
         if (! empty($user)) {
             if ($this->interface === self::LDAP) {
                 $attrs = $this->adapter->getUserAttributes($user, [$this->ldapAttrName]);
@@ -196,7 +163,7 @@ class IsCesnetEligible extends ProcessingFilter
             }
         }
 
-        if ($isHostelVerified || (! empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible($user))) {
+        if (! empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible($user)) {
             $this->cesnetEligibleLastSeenValue = date('Y-m-d H:i:s');
 
             if (! empty($user)) {
