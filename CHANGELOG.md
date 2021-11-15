@@ -1,3 +1,10 @@
+## [3.0.3](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.0.2...v3.0.3) (2021-11-15)
+
+
+### Bug Fixes
+
+* fix duplicate or unused consts ([ef595e0](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/ef595e0a972531b8fc7fbd5893d6d7994721105d))
+
 ## [3.0.2](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.0.1...v3.0.2) (2021-11-15)
 
 
