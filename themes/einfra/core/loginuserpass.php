@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-$this->data['header'] = $this->t('{login:user_pass_header}');
+$this->data['header'] = $this->t('{cesnet:einfra:user_pass_header}');
 
 if (strlen($this->data['username']) > 0) {
     $this->data['autofocus'] = 'password';
@@ -18,17 +18,13 @@ if ($this->data['errorcode'] !== null) {
 
         <strong>
             <?php
-            echo htmlspecialchars($this->t(
-        '{errors:title_' . $this->data['errorcode'] . '}',
-        $this->data['errorparams']
-    )); ?>
+            echo htmlspecialchars($this->t('{cesnet:einfra:loginuserpass_error_title}')); ?>
         </strong>
 
-        <?php
-        echo htmlspecialchars($this->t(
-        '{errors:descr_' . $this->data['errorcode'] . '}',
-        $this->data['errorparams']
-    )); ?>
+        <p>
+            <?php
+            echo htmlspecialchars($this->t('{cesnet:einfra:loginuserpass_error_text}')); ?>
+        </p>
     </div>
 
     <?php
