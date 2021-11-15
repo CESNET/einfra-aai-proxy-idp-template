@@ -1,3 +1,11 @@
+## [3.0.1](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.0.0...v3.0.1) (2021-11-15)
+
+
+### Bug Fixes
+
+* change page width for e-infra template ([2966f9e](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/2966f9ea260e4ce103bfcad51ac42ee9fb67c83d))
+* changes in e-INFRA CZ template footer ([40caab3](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/40caab3bb81bdcda1a3ae5451582c4b4ec8a3403))
+
 # Change Log
 All notable changes to this project will be documented in this file.
 
