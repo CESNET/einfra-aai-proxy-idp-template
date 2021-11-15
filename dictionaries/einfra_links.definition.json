@@ -1,0 +1,42 @@
+{
+  "einfra_link": {
+    "en": "https://www.e-infra.cz/en",
+    "cs": "https://www.e-infra.cz"
+  },
+  "einfra_name": {
+    "en": "e-INFRA CZ",
+    "cs": "e-INFRA CZ"
+  },
+  "cesnet_link": {
+    "en": "https://www.cesnet.cz/?lang=en",
+    "cs": "https://www.cesnet.cz"
+  },
+  "cesnet_name": {
+    "en": "CESNET",
+    "cs": "CESNET"
+  },
+  "ceritsc_link": {
+    "en": "https://www.cerit-sc.cz",
+    "cs": "https://www.cerit-sc.cz"
+  },
+  "ceritsc_name": {
+    "en": "CERIT-SC",
+    "cs": "CERIT-SC"
+  },
+  "it4i_link": {
+    "en": "https://www.it4i.cz/en",
+    "cs": "https://www.it4i.cz"
+  },
+  "it4i_name": {
+    "en": "IT4Innovations",
+    "cs": "IT4Innovations"
+  },
+  "data_protection_link": {
+    "en": "https://www.e-infra.cz/en/personal-data-processing",
+    "cs": "https://www.e-infra.cz/zpracovani-osobnich-udaju"
+  },
+  "data_protection_name": {
+    "en": "Personal data processing",
+    "cs": "Zpracování osobních údajů"
+  }
+}
