@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.0...v3.1.1) (2021-11-22)
+
+
+### Bug Fixes
+
+* fix bad mail address in footer ([2fc92c0](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/2fc92c0a1a3337897f28d2dee7532524dabb85e3))
+
 # [3.1.0](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.0.3...v3.1.0) (2021-11-15)
 
 
