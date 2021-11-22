@@ -40,7 +40,7 @@ if (! empty($this->data['htmlinject']['htmlContentPost'])) {
                             <h2><?php echo $this->t('{cesnet:einfra:footer_helpdesk}'); ?></h2>
                             TEL: +420 234 680 222<br>
                             GSM: +420 602 252 531<br>
-                            <a href="mailto:login@e-infra.cz">support@e-infra.cz</a>
+                            <a href="mailto:support@e-infra.cz">support@e-infra.cz</a>
                         </div>
                     </div>
                 </div>
