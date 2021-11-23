@@ -34,8 +34,6 @@ if (! empty($this->data['htmlinject']['htmlContentPost'])) {
                                         $this->t('{cesnet:einfra_links:ceritsc_name}') . '</a>'; ?></li>
                                 <li><?php echo '<a href="' . $this->t('{cesnet:einfra_links:it4i_link}') . '">' .
                                         $this->t('{cesnet:einfra_links:it4i_name}') . '</a>'; ?></li>
-                                <li><?php echo '<a href="' . $this->t('{cesnet:einfra_links:data_protection_link}') .
-                                        '">' . $this->t('{cesnet:einfra_links:data_protection_name}') . '</a>'; ?></li>
                             </ul>
                         </div>
                         <div class="col col-sm-6">
