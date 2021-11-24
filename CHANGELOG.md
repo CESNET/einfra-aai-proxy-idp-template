@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.1...v3.1.2) (2021-11-24)
+
+
+### Bug Fixes
+
+* update footer ([d1fa85f](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/d1fa85fcef00cf828b0aa88a3ede014fac5b75cc))
+
 ## [3.1.1](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.0...v3.1.1) (2021-11-22)
 
 
