@@ -1,3 +1,10 @@
+## [3.1.4](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.3...v3.1.4) (2021-12-03)
+
+
+### Bug Fixes
+
+* change the eINFRA black small logo ([c2d5c3e](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/c2d5c3e815a438ad59ff0b7de02728ca9b7eb64a))
+
 ## [3.1.3](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.2...v3.1.3) (2021-12-01)
 
 
