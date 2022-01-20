@@ -20,7 +20,7 @@ if (! empty($this->data['htmlinject']['htmlContentPost'])) {
             <div class="row">
                 <div class="col-md-4 logo">
                     <a href="http://www.cesnet.cz/">
-                        <img src="<?php echo Module::getModuleUrl('cesnet/res/img/logo-cesnet.png') ?>"
+                        <img src="<?php echo Module::getModuleUrl('cesnet/res/img/logo-cesnet.png'); ?>"
                              width="250px">
                     </a>
                 </div>

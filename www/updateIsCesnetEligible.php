@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Script for updating IsCesnetEligible in Perun asynchronously
+ * Script for updating IsCesnetEligible in Perun asynchronously.
  */
 
 use SimpleSAML\Error\Exception;

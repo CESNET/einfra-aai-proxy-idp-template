@@ -19,7 +19,7 @@ if (! empty($this->data['htmlinject']['htmlContentPost'])) {
         <div class="container">
             <div class="row">
                 <div class="col-md-4 logo">
-                    <img src="<?php echo Module::getModuleUrl('cesnet/res/img/footer_logo.png') ?>" >
+                    <img src="<?php echo Module::getModuleUrl('cesnet/res/img/footer_logo.png'); ?>" >
                 </div>
                 <div class="col-md-8">
                     <div class="row">

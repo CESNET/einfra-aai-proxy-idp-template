@@ -10,13 +10,12 @@ use SimpleSAML\Module\perun\model\WarningConfiguration;
 use SimpleSAML\Utils\HTTP;
 
 /**
- * This is simple example of template for perun Discovery service
+ * This is simple example of template for perun Discovery service.
  *
  * Allow type hinting in IDE
  *
  * @var DiscoTemplate $this
  */
-
 $canContinue = false;
 
 if (isset($_POST['continue'])) {
@@ -63,19 +62,19 @@ $this->data['jquery'] = [
 ];
 $this->includeAtTemplateBase('includes/header.php');
 
-if ($authContextClassRef !== null) {
+if (null !== $authContextClassRef) {
     foreach ($authContextClassRef as $value) {
-        if (substr($value, 0, strlen(URN_CESNET_PROXYIDP_FILTER)) === URN_CESNET_PROXYIDP_FILTER) {
+        if (URN_CESNET_PROXYIDP_FILTER === substr($value, 0, strlen(URN_CESNET_PROXYIDP_FILTER))) {
             $filter = substr($value, strlen(URN_CESNET_PROXYIDP_FILTER), strlen($value));
-        } elseif (substr($value, 0, strlen(URN_CESNET_PROXYIDP_EFILTER)) === URN_CESNET_PROXYIDP_EFILTER) {
+        } elseif (URN_CESNET_PROXYIDP_EFILTER === substr($value, 0, strlen(URN_CESNET_PROXYIDP_EFILTER))) {
             $efilter = substr($value, strlen(URN_CESNET_PROXYIDP_EFILTER), strlen($value));
-        } elseif (substr($value, 0, strlen(URN_CESNET_PROXYIDP_IDPENTITYID)) === URN_CESNET_PROXYIDP_IDPENTITYID) {
+        } elseif (URN_CESNET_PROXYIDP_IDPENTITYID === substr($value, 0, strlen(URN_CESNET_PROXYIDP_IDPENTITYID))) {
             $idpEntityId = substr($value, strlen(URN_CESNET_PROXYIDP_IDPENTITYID), strlen($value));
         }
     }
 }
 
-if ($idpEntityId !== null) {
+if (null !== $idpEntityId) {
     $url = $this->getContinueUrl($idpEntityId);
 
     HTTP::redirectTrustedURL($url);
@@ -84,11 +83,11 @@ if ($idpEntityId !== null) {
     $url = $this->getContinueUrlWithoutIdPEntityId();
 
     if ($warningAttributes->isEnabled()) {
-        if ($warningAttributes->getType() === WarningConfiguration::WARNING_TYPE_INFO) {
+        if (WarningConfiguration::WARNING_TYPE_INFO === $warningAttributes->getType()) {
             echo '<div class="alert alert-info">';
-        } elseif ($warningAttributes->getType() === WarningConfiguration::WARNING_TYPE_WARNING) {
+        } elseif (WarningConfiguration::WARNING_TYPE_WARNING === $warningAttributes->getType()) {
             echo '<div class="alert alert-warning">';
-        } elseif ($warningAttributes->getType() === WarningConfiguration::WARNING_TYPE_ERROR) {
+        } elseif (WarningConfiguration::WARNING_TYPE_ERROR === $warningAttributes->getType()) {
             echo '<div class="alert alert-danger">';
         }
         echo '<h4> <strong>' . $warningAttributes->getTitle() . '</strong> </h4>';
@@ -116,29 +115,33 @@ if ($idpEntityId !== null) {
                 true
             )
         )) {
-        if ($efilter !== null) {
+        if (null !== $efilter) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&efilter=' . $efilter);
             exit;
-        } elseif ($filter !== null) {
+        }
+        if (null !== $filter) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $filter);
             exit;
-        } elseif (isset($this->data['originalsp']['efilter'])) {
+        }
+        if (isset($this->data['originalsp']['efilter'])) {
             $efilter = $this->data['originalsp']['efilter'];
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&efilter=' . $efilter);
             exit;
-        } elseif (isset($this->data['originalsp']['filter'])) {
+        }
+        if (isset($this->data['originalsp']['filter'])) {
             $filter = $this->data['originalsp']['filter'];
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $filter);
             exit;
-        } elseif ($defaultEFilter !== null) {
+        }
+        if (null !== $defaultEFilter) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&efilter=' . $defaultEFilter);
             exit;
-        } elseif ($defaultFilter !== null) {
+        }
+        if (null !== $defaultFilter) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $defaultFilter);
             exit;
         }
         throw new Exception('cesnet:disco-tpl: Filter did not set. ');
     }
-
 
 $this->includeAtTemplateBase('includes/footer.php');

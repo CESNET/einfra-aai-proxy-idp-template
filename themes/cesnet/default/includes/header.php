@@ -3,7 +3,7 @@
 use SimpleSAML\Module;
 use SimpleSAML\Utils\HTTP;
 
-/**
+/*
  * Support the htmlinject hook, which allows modules to change header, pre and post body on all pages.
  */
 $this->data['htmlinject'] = [
@@ -30,7 +30,7 @@ if (array_key_exists('pageid', $this->data)) {
 }
 // - o - o - o - o - o - o - o - o - o - o - o - o -
 
-/**
+/*
  * Do not allow to frame SimpleSAMLphp pages from another location. This prevents clickjacking attacks in modern
  * browsers.
  *
@@ -66,7 +66,7 @@ header('X-Frame-Options: SAMEORIGIN');
             $version = $jquery['version'];
         }
 
-        if ($version === '1.8') {
+        if ('1.8' === $version) {
             if (isset($jquery['core']) && $jquery['core']) {
                 echo '<script type="text/javascript" src="/' . $this->data['baseurlpath'] .
                         'resources/jquery-1.8.js"></script>' . "\n"
@@ -96,7 +96,6 @@ header('X-Frame-Options: SAMEORIGIN');
             echo $c;
         }
     }
-
 
     if ($this->isLanguageRTL()) {
         ?>
@@ -133,7 +132,7 @@ if (isset($this->data['onLoad'])) {
     $onLoad .= $this->data['onLoad'];
 }
 
-if ($onLoad !== '') {
+if ('' !== $onLoad) {
     $onLoad = ' onload="' . $onLoad . '"';
 }
 
@@ -147,7 +146,7 @@ if ($onLoad !== '') {
         <?php
 
         $includeLanguageBar = true;
-        if (isset($this->data['hideLanguageBar']) && $this->data['hideLanguageBar'] === true) {
+        if (isset($this->data['hideLanguageBar']) && true === $this->data['hideLanguageBar']) {
             $includeLanguageBar = false;
         }
 
