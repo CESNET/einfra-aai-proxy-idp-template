@@ -1,3 +1,11 @@
+## [3.1.5](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.4...v3.1.5) (2022-01-20)
+
+
+### Bug Fixes
+
+* fix dependency on perun-module ([f805f93](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/f805f934e06c6851a3fdc5c434f3a22deea1edc2))
+* update ECS, update configuration and fix the code ([ad38c1d](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/ad38c1d17b2adfca243d29af587ee87040f957d3))
+
 ## [3.1.4](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.3...v3.1.4) (2021-12-03)
 
 
