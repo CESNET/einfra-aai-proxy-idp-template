@@ -1,3 +1,15 @@
+# [4.0.0](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.5...v4.0.0) (2022-05-20)
+
+
+### Features
+
+* new template for privacyIDEA included from module Perun ([8f9a8ec](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/8f9a8ecbc3ca16d941f3f0c896e043728b1811ec))
+
+
+### BREAKING CHANGES
+
+* requires cesnet/simplesamlphp-module-perun >= v8
+
 ## [3.1.5](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.4...v3.1.5) (2022-01-20)
 
 
