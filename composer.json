@@ -17,11 +17,14 @@
     "require": {
         "simplesamlphp/composer-module-installer": "~1.0",
         "simplesamlphp/simplesamlphp": "~1.17",
-        "cesnet/simplesamlphp-module-perun": ">=6.0",
+        "cesnet/simplesamlphp-module-perun": ">=8.0",
         "ext-json": "*",
         "ext-curl": "*"
     },
     "require-dev": {
         "symplify/easy-coding-standard": "^10.0"
+    },
+    "suggest": {
+        "cesnet/simplesamlphp-module-privacyidea": "included privacyIDEA template is for this module"
     }
 }
