@@ -75,7 +75,7 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
         }
 
         foreach ($entityCategoryAttributes as $entityCategoryAttribute) {
-            if (self::EDUID_IDP_GROUP === substr($entityCategoryAttribute, 0, strlen(self::EDUID_IDP_GROUP))) {
+            if (substr($entityCategoryAttribute, 0, strlen(self::EDUID_IDP_GROUP)) === self::EDUID_IDP_GROUP) {
                 $this->entityCategory = substr(
                     $entityCategoryAttribute,
                     strlen(self::EDUID_IDP_GROUP),
@@ -97,10 +97,10 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
      */
     private function getLoA()
     {
-        if (null === $this->entityCategory || empty($this->entityCategory)) {
+        if ($this->entityCategory === null || empty($this->entityCategory)) {
             return 0;
         }
-        if (self::UNIVERSITY === $this->entityCategory) {
+        if ($this->entityCategory === self::UNIVERSITY) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
                 if (preg_match(
                     '/(^employee@.+\.cz$)|' .
@@ -115,25 +115,25 @@ class ComputeLoA extends \SimpleSAML\Auth\ProcessingFilter
                     return 2;
                 }
             }
-        } elseif (self::AVCR === $this->entityCategory) {
+        } elseif ($this->entityCategory === self::AVCR) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
                 if (preg_match('/^member@.+\.cz$/', $affiliation, $matches)) {
                     return 2;
                 }
             }
-        } elseif (self::LIBRARY === $this->entityCategory) {
+        } elseif ($this->entityCategory === self::LIBRARY) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
                 if (preg_match('/^employee@.+\.cz$/', $affiliation, $matches)) {
                     return 2;
                 }
             }
-        } elseif (self::HOSPITAL === $this->entityCategory) {
+        } elseif ($this->entityCategory === self::HOSPITAL) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
                 if (preg_match('/^employee@.+\.cz$/', $affiliation, $matches)) {
                     return 2;
                 }
             }
-        } elseif (self::OTHER === $this->entityCategory) {
+        } elseif ($this->entityCategory === self::OTHER) {
             foreach ($this->eduPersonScopedAffiliation as $affiliation) {
                 if (preg_match('/(^employee@.+\.cz$)|(^member@.+\.cz$)/', $affiliation, $matches)) {
                     return 2;

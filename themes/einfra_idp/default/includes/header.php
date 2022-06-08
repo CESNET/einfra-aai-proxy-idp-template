@@ -60,13 +60,13 @@ header('X-Frame-Options: SAMEORIGIN');
 
     <?php
 
-    if (! empty($jquery)) {
+    if (!empty($jquery)) {
         $version = '1.8';
         if (array_key_exists('version', $jquery)) {
             $version = $jquery['version'];
         }
 
-        if ('1.8' === $version) {
+        if ($version === '1.8') {
             if (isset($jquery['core']) && $jquery['core']) {
                 echo '<script type="text/javascript" src="/' . $this->data['baseurlpath'] .
                         'resources/jquery-1.8.js"></script>' . "\n"
@@ -91,7 +91,7 @@ header('X-Frame-Options: SAMEORIGIN');
             'resources/clipboard.min.js"></script>' . "\n";
     }
 
-    if (! empty($this->data['htmlinject']['htmlContentHead'])) {
+    if (!empty($this->data['htmlinject']['htmlContentHead'])) {
         foreach ($this->data['htmlinject']['htmlContentHead'] as $c) {
             echo $c;
         }
@@ -132,7 +132,7 @@ if (isset($this->data['onLoad'])) {
     $onLoad .= $this->data['onLoad'];
 }
 
-if ('' !== $onLoad) {
+if ($onLoad !== '') {
     $onLoad = ' onload="' . $onLoad . '"';
 }
 
@@ -146,7 +146,7 @@ if ('' !== $onLoad) {
         <?php
 
         $includeLanguageBar = true;
-        if (isset($this->data['hideLanguageBar']) && true === $this->data['hideLanguageBar']) {
+        if (isset($this->data['hideLanguageBar']) && $this->data['hideLanguageBar'] === true) {
             $includeLanguageBar = false;
         }
 
@@ -266,7 +266,7 @@ if ('' !== $onLoad) {
 
 <?php
 
-if (! empty($this->data['htmlinject']['htmlContentPre'])) {
+if (!empty($this->data['htmlinject']['htmlContentPre'])) {
     foreach ($this->data['htmlinject']['htmlContentPre'] as $c) {
         echo $c;
     }

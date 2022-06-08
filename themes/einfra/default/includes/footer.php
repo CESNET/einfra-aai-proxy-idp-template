@@ -2,7 +2,7 @@
 
 use SimpleSAML\Module;
 
-if (! empty($this->data['htmlinject']['htmlContentPost'])) {
+if (!empty($this->data['htmlinject']['htmlContentPost'])) {
     foreach ($this->data['htmlinject']['htmlContentPost'] as $c) {
         echo $c;
     }
