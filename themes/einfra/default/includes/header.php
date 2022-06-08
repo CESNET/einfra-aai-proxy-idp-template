@@ -3,7 +3,7 @@
 use SimpleSAML\Module;
 use SimpleSAML\Utils\HTTP;
 
-/*
+/**
  * Support the htmlinject hook, which allows modules to change header, pre and post body on all pages.
  */
 $this->data['htmlinject'] = [
@@ -30,7 +30,7 @@ if (array_key_exists('pageid', $this->data)) {
 }
 // - o - o - o - o - o - o - o - o - o - o - o - o -
 
-/*
+/**
  * Do not allow to frame SimpleSAMLphp pages from another location. This prevents clickjacking attacks in modern
  * browsers.
  *
@@ -56,7 +56,7 @@ header('X-Frame-Options: SAMEORIGIN');
 
     <link rel="stylesheet" type="text/css" href="/<?php echo $this->data['baseurlpath']; ?>resources/default.css"/>
     <link rel="icon" type="image/icon"
-          href="<?php echo Module::getModuleUrl('cesnet/res/img/icons/favicon.ico'); ?>"/>
+          href="<?php echo Module::getModuleUrl('cesnet/res/img/icons/favicon_einfra.ico'); ?>"/>
 
     <?php
 
@@ -96,6 +96,7 @@ header('X-Frame-Options: SAMEORIGIN');
             echo $c;
         }
     }
+
 
     if ($this->isLanguageRTL()) {
         ?>
