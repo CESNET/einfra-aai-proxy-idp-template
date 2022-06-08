@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v4.0.0...v4.0.1) (2022-06-08)
+
+
+### Bug Fixes
+
+* fix ECS ([1ccc75c](https://github.com/CESNET/einfra-aai-proxy-idp-template/commit/1ccc75c249f6212dc3702e9a8b8dc0a2137c59e2))
+
 # [4.0.0](https://github.com/CESNET/einfra-aai-proxy-idp-template/compare/v3.1.5...v4.0.0) (2022-05-20)
 
 
