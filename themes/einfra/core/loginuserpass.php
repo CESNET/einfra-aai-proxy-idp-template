@@ -10,7 +10,7 @@ if (strlen($this->data['username']) > 0) {
 
 $this->includeAtTemplateBase('includes/header.php');
 
-if (null !== $this->data['errorcode']) {
+if ($this->data['errorcode'] !== null) {
     ?>
     <div class="alert alert-danger">
         <span class="glyphicon glyphicon-exclamation-sign"
@@ -45,7 +45,7 @@ if (null !== $this->data['errorcode']) {
                 <input id="username" <?php echo ($this->data['forceUsername']) ? 'disabled="disabled"' : ''; ?>
                        type="text" name="username" class="form-control"
                     <?php
-                    if (! $this->data['forceUsername']) {
+                    if (!$this->data['forceUsername']) {
                         echo 'tabindex="1"';
                     }
                     ?> value="<?php echo htmlspecialchars($this->data['username']); ?>"/>
@@ -60,7 +60,7 @@ if (null !== $this->data['errorcode']) {
         </div>
 
         <?php
-        if ($this->data['rememberUsernameEnabled'] && ! $this->data['forceUsername']) {
+        if ($this->data['rememberUsernameEnabled'] && !$this->data['forceUsername']) {
             // display the "remember my username" checkbox?>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -155,7 +155,7 @@ if (null !== $this->data['errorcode']) {
 
 <?php
 
-if (! empty($this->data['links'])) {
+if (!empty($this->data['links'])) {
     echo '<ul class="links" style="margin-top: 2em">';
     foreach ($this->data['links'] as $l) {
         echo '<li>' .

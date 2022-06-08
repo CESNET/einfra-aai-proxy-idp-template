@@ -62,19 +62,19 @@ $this->data['jquery'] = [
 ];
 $this->includeAtTemplateBase('includes/header.php');
 
-if (null !== $authContextClassRef) {
+if ($authContextClassRef !== null) {
     foreach ($authContextClassRef as $value) {
-        if (URN_CESNET_PROXYIDP_FILTER === substr($value, 0, strlen(URN_CESNET_PROXYIDP_FILTER))) {
+        if (substr($value, 0, strlen(URN_CESNET_PROXYIDP_FILTER)) === URN_CESNET_PROXYIDP_FILTER) {
             $filter = substr($value, strlen(URN_CESNET_PROXYIDP_FILTER), strlen($value));
-        } elseif (URN_CESNET_PROXYIDP_EFILTER === substr($value, 0, strlen(URN_CESNET_PROXYIDP_EFILTER))) {
+        } elseif (substr($value, 0, strlen(URN_CESNET_PROXYIDP_EFILTER)) === URN_CESNET_PROXYIDP_EFILTER) {
             $efilter = substr($value, strlen(URN_CESNET_PROXYIDP_EFILTER), strlen($value));
-        } elseif (URN_CESNET_PROXYIDP_IDPENTITYID === substr($value, 0, strlen(URN_CESNET_PROXYIDP_IDPENTITYID))) {
+        } elseif (substr($value, 0, strlen(URN_CESNET_PROXYIDP_IDPENTITYID)) === URN_CESNET_PROXYIDP_IDPENTITYID) {
             $idpEntityId = substr($value, strlen(URN_CESNET_PROXYIDP_IDPENTITYID), strlen($value));
         }
     }
 }
 
-if (null !== $idpEntityId) {
+if ($idpEntityId !== null) {
     $url = $this->getContinueUrl($idpEntityId);
 
     HTTP::redirectTrustedURL($url);
@@ -83,11 +83,11 @@ if (null !== $idpEntityId) {
     $url = $this->getContinueUrlWithoutIdPEntityId();
 
     if ($warningAttributes->isEnabled()) {
-        if (WarningConfiguration::WARNING_TYPE_INFO === $warningAttributes->getType()) {
+        if ($warningAttributes->getType() === WarningConfiguration::WARNING_TYPE_INFO) {
             echo '<div class="alert alert-info">';
-        } elseif (WarningConfiguration::WARNING_TYPE_WARNING === $warningAttributes->getType()) {
+        } elseif ($warningAttributes->getType() === WarningConfiguration::WARNING_TYPE_WARNING) {
             echo '<div class="alert alert-warning">';
-        } elseif (WarningConfiguration::WARNING_TYPE_ERROR === $warningAttributes->getType()) {
+        } elseif ($warningAttributes->getType() === WarningConfiguration::WARNING_TYPE_ERROR) {
             echo '<div class="alert alert-danger">';
         }
         echo '<h4> <strong>' . $warningAttributes->getTitle() . '</strong> </h4>';
@@ -108,18 +108,18 @@ if (null !== $idpEntityId) {
 
     if ($canContinue &&
         (
-            ! $warningAttributes->isEnabled() ||
+            !$warningAttributes->isEnabled() ||
             in_array(
                 $warningAttributes->getType(),
                 [WarningConfiguration::WARNING_TYPE_INFO, WarningConfiguration::WARNING_TYPE_WARNING],
                 true
             )
         )) {
-        if (null !== $efilter) {
+        if ($efilter !== null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&efilter=' . $efilter);
             exit;
         }
-        if (null !== $filter) {
+        if ($filter !== null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $filter);
             exit;
         }
@@ -133,11 +133,11 @@ if (null !== $idpEntityId) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $filter);
             exit;
         }
-        if (null !== $defaultEFilter) {
+        if ($defaultEFilter !== null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&efilter=' . $defaultEFilter);
             exit;
         }
-        if (null !== $defaultFilter) {
+        if ($defaultFilter !== null) {
             header('Location: https://ds.eduid.cz/wayf.php' . $url . '&filter=' . $defaultFilter);
             exit;
         }

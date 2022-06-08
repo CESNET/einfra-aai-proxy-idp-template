@@ -85,7 +85,7 @@ class IsCesnetEligible extends ProcessingFilter
     {
         parent::__construct($config, $reserved);
         $conf = Configuration::loadFromArray($config);
-        if (! isset($config[self::RPC_ATTRIBUTE_NAME]) || empty($config[self::RPC_ATTRIBUTE_NAME])) {
+        if (!isset($config[self::RPC_ATTRIBUTE_NAME]) || empty($config[self::RPC_ATTRIBUTE_NAME])) {
             throw new Exception(
                 'cesnet:IsCesnetEligible - missing mandatory configuration option \'' . self::RPC_ATTRIBUTE_NAME . '\'.'
             );
@@ -96,12 +96,12 @@ class IsCesnetEligible extends ProcessingFilter
         $this->cesnetLdapConnector = (new AdapterLdap(self::CONFIG_FILE_NAME))->getConnector();
         $this->rpcAdapter = Adapter::getInstance(Adapter::RPC);
 
-        if (isset($config[self::ATTR_NAME]) && ! empty($config[self::ATTR_NAME])) {
+        if (isset($config[self::ATTR_NAME]) && !empty($config[self::ATTR_NAME])) {
             $this->returnAttrName = $config['attrName'];
         }
 
         if (isset($config[self::INTERFACE_PROPNAME], $config[self::LDAP_ATTRIBUTE_NAME]) &&
-            self::LDAP === $config[self::INTERFACE_PROPNAME] && ! empty($config[self::LDAP_ATTRIBUTE_NAME])) {
+            $config[self::INTERFACE_PROPNAME] === self::LDAP && !empty($config[self::LDAP_ATTRIBUTE_NAME])) {
             $this->interface = $config[self::INTERFACE_PROPNAME];
             $this->ldapAttrName = $config[self::LDAP_ATTRIBUTE_NAME];
             $this->adapter = Adapter::getInstance(Adapter::LDAP);
@@ -117,7 +117,7 @@ class IsCesnetEligible extends ProcessingFilter
             $conf->getString(self::PERUN_USER_SPONSORING_ORGANIZATIONS_ATTR_NAME, null);
         $this->userAffiliationsAttrName = $conf->getString(self::PERUN_USER_AFFILIATIONS_ATTR_NAME, null);
 
-        if (! isset($this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName)) {
+        if (!isset($this->userAffiliationsAttrName, $this->userSponsoringOrganizationsAttrName)) {
             Logger::warning(
                 'cesnet:IsCesnetEligible - One of attributes [' . $this->userAffiliationsAttrName . ', ' .
                 $this->userSponsoringOrganizationsAttrName . '] wasn\'t set!'
@@ -148,8 +148,8 @@ class IsCesnetEligible extends ProcessingFilter
             );
         }
 
-        if (! empty($user)) {
-            if (self::LDAP === $this->interface) {
+        if (!empty($user)) {
+            if ($this->interface === self::LDAP) {
                 $attrs = $this->adapter->getUserAttributes($user, [$this->ldapAttrName]);
                 if (isset($attrs[$this->ldapAttrName][0])) {
                     $this->cesnetEligibleLastSeenValue = $attrs[$this->ldapAttrName][0];
@@ -162,10 +162,10 @@ class IsCesnetEligible extends ProcessingFilter
             }
         }
 
-        if (! empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible($user)) {
+        if (!empty($this->eduPersonScopedAffiliation) && $this->isCesnetEligible($user)) {
             $this->cesnetEligibleLastSeenValue = date('Y-m-d H:i:s');
 
-            if (! empty($user)) {
+            if (!empty($user)) {
                 // Update attribute 'isCesnetEligible' in Perun
 
                 $id = uniqid('', true);
@@ -187,7 +187,7 @@ class IsCesnetEligible extends ProcessingFilter
             }
         }
 
-        if (null !== $this->cesnetEligibleLastSeenValue) {
+        if ($this->cesnetEligibleLastSeenValue !== null) {
             $request['Attributes'][$this->returnAttrName] = [$this->cesnetEligibleLastSeenValue];
             Logger::debug(
                 'cesnet:IsCesnetEligible - Attribute ' . $this->returnAttrName . ' was set to value ' .
@@ -196,7 +196,7 @@ class IsCesnetEligible extends ProcessingFilter
         }
 
         $request['Attributes']['isCesnetEligible'] = ['false'];
-        if ((null !== $this->cesnetEligibleLastSeenValue) && $this->cesnetEligibleLastSeenValue > date(
+        if (($this->cesnetEligibleLastSeenValue !== null) && $this->cesnetEligibleLastSeenValue > date(
             'Y-m-d H:i:s',
             strtotime('-1 year')
         )) {
@@ -306,7 +306,7 @@ class IsCesnetEligible extends ProcessingFilter
     private function compareAffiliations($userAffiliations, $allowedAffiliations): bool
     {
         $result = array_intersect($userAffiliations, $allowedAffiliations);
-        if (! empty($result)) {
+        if (!empty($result)) {
             return true;
         }
 
