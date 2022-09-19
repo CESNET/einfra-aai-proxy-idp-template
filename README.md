@@ -4,6 +4,8 @@
 [![Build and CI](https://github.com/cesnet/einfra-aai-proxy-idp-template/actions/workflows/build_and_check.yml/badge.svg)](https://github.com/cesnet/einfra-aai-proxy-idp-template/actions/workflows/build_and_check.yml)
 [![License](https://poser.pugx.org/cesnet/simplesamlphp-module-cesnet/license)](https://packagist.org/packages/cesnet/simplesamlphp-module-cesnet)
 
+**REPOSITORY HAS BEEN MOVED TO: https://gitlab.ics.muni.cz/perun-proxy-aai/simplesamlphp/simplesamlphp-module-cesnet**
+
 Template for CESNET eInfra Proxy IdP component
 
 ## Contribution
